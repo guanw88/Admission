@@ -479,8 +479,11 @@ function (_React$Component) {
       if (e.target.name === "demoLogin") {
         e.preventDefault();
         var user = {
-          username: "george1",
-          password: "123456"
+          username: "GuestLogin",
+          password: "123456",
+          email: "demologinemail@eventfull.com",
+          first_name: "Guest",
+          last_name: "GuestLN"
         };
         this.props.processForm(user);
       }
@@ -523,7 +526,7 @@ function (_React$Component) {
         onChange: this.handleChange,
         onClick: this.clearInput
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "password",
+        type: "text",
         value: this.state.password,
         name: "password",
         onChange: this.handleChange,

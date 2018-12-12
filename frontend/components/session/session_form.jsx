@@ -48,8 +48,11 @@ class SessionForm extends React.Component {
     if (e.target.name === "demoLogin") {
       e.preventDefault();
       const user = {
-        username: "george1",
-        password: "123456"
+        username: "GuestLogin",
+        password: "123456",
+        email: "demologinemail@eventfull.com",
+        first_name: "Guest",
+        last_name: "GuestLN"
       };
       this.props.processForm(user);
     }
@@ -94,7 +97,7 @@ class SessionForm extends React.Component {
           <br/>
           <label>
             <input
-              type="password"
+              type="text"
               value={this.state.password}
               name="password"
               onChange={this.handleChange}
