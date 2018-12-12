@@ -1,17 +1,20 @@
 import SessionForm from './session_form';
 import { connect } from 'react-redux';
-import { signup, clearErrors } from '../../actions/session_actions';
+import { signup, clearSessionErrors } from '../../actions/session_actions';
+import { withRouter } from 'react-router';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     errors: state.errors.session.errors,
-    formtype: "signup"
+    formtype: "signup",
+    ownProps
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    processForm: (user) => dispatch(signup(user))
+    processForm: (user) => dispatch(signup(user)),
+    clearSessionErrors: () => dispatch(clearSessionErrors())
   };
 };
 
