@@ -1,0 +1,59 @@
+.loginContainer {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 29px;
+  margin-bottom: 56px;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.loginIcon {
+  color: #c24b24;
+  font-size: 76px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.loginGetStartedText {
+  color: #000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.loginExplanationText {
+  color: #6f7287;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 36px;
+}
+
+.loginForm {
+  width: 75%;
+}
+
+.loginContainer input {
+  height: 48px;
+  border: 1px #dbdae3 solid;
+  border-radius: 2px;
+  padding: 1px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.loginContainer input[type="text"], input[type="password"]{
+  padding-left: 10px;
+}
+
+.loginContainer input[type="submit"]{
+  text-align: center;
+  padding: 0px 5px;
+  background-color: #f05537;
+  color: white;
+  height: 40px;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
