@@ -1,3 +1,4 @@
+/* Login and Signup Page Styling */
 .loginContainer {
   margin: 0 auto;
   width: 50%;
@@ -56,4 +57,10 @@
   height: 40px;
   font-weight: 600;
   letter-spacing: .2px;
+}
+
+/* Home Page Styling */
+.sliderImage {
+  height: 529px;
+  width: 100%;
 }

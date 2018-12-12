@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Slider from './slider';
 
-class HomePageContent extends React.Component {
+class Slide extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <Slider millisecToNextSlide={20000} />
+      <img className="sliderImage" src={this.props.image} />
     );
   }
 
 
 }
 
-export default HomePageContent;
+export default Slide;
