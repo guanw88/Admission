@@ -18,6 +18,11 @@ class User < ApplicationRecord
   validates :username, :session_token, uniqueness: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
+  has_many :events,
+    primary_key: :id,
+    foreign_key: :organizer_id,
+    className: :Event
+
   attr_reader :password
   after_initialize :ensure_session_token, :ensure_email, :ensure_name
 
