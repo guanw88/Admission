@@ -526,7 +526,7 @@ function (_React$Component) {
         onChange: this.handleChange,
         onClick: this.clearInput
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
+        type: "password",
         value: this.state.password,
         name: "password",
         onChange: this.handleChange,
