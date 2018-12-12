@@ -128,6 +128,7 @@ var receiveErrors = function receiveErrors(errors) {
 };
 
 var dispatchErrors = function dispatchErrors(dispatch, xhr) {
+  debugger;
   dispatch(receiveErrors(xhr.responseJSON));
 };
 
@@ -711,7 +712,7 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
 
 var sessionErrorsReducer = function sessionErrorsReducer() {
@@ -720,10 +721,11 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SESSION_ERRORS"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SESSION_ERRORS"]:
+      debugger;
       return action.errors;
 
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return [];
 
     default:
@@ -890,18 +892,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 var signup = function signup(payload) {
-  if (payload.first_name === undefined) {
-    payload.first_name = "Guest";
-  }
-
-  if (payload.last_name === undefined) {
-    payload.last_name = "Guest";
-  }
-
-  if (payload.email === undefined) {
-    payload.email = "temporary@eventful.com";
-  }
-
   return $.ajax({
     type: "POST",
     url: "/api/users",

@@ -25,6 +25,7 @@ export const receiveErrors = (errors) => {
 };
 
 const dispatchErrors = (dispatch, xhr) => {
+  debugger;
   dispatch (receiveErrors(xhr.responseJSON));
 };
 
