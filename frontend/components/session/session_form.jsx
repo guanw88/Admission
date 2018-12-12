@@ -20,7 +20,7 @@ class SessionForm extends React.Component {
     e.preventDefault();
     const user = {
       username: this.state.username === "Username" ? "" : this.state.username,
-      password: this.state.password === "Password" ? "" : this.state.username
+      password: this.state.password === "Password" ? "" : this.state.password
     };
     this.props.processForm(user);
   }
@@ -65,6 +65,9 @@ class SessionForm extends React.Component {
         <p>{errorStr}</p>
       );
     }
+  }
+
+  componentDidMount() {
   }
 
   render() {

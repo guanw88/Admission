@@ -25,10 +25,10 @@ class Event < ApplicationRecord
     :address, :city, :state, :zip, :description, presence: true
   validates :private_event_yn, inclusion: { in: [ true, false ] }
 
-  belongs_to :organizer,
-    primary_key: :id,
-    foreign_key: :organizer_id,
-    className: :User
+  # belongs_to :organizer,
+  #   primary_key: :id,
+  #   foreign_key: :organizer_id,
+  #   className: :User
 
 
 end

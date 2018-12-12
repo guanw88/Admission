@@ -187,11 +187,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
+  var NoMatch = function NoMatch() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+      to: {
+        pathname: "/"
+      }
+    });
+  };
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "/"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
     id: "logo"
-  }, "eventful!")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+  }, "eventful!")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     exact: true,
     path: "/",
     component: _homepage_home_page_container__WEBPACK_IMPORTED_MODULE_6__["default"]
@@ -201,7 +209,10 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     path: "/signup",
     component: _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    path: "*",
+    component: NoMatch
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -343,21 +354,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    logout: function (_logout) {
-      function logout() {
-        return _logout.apply(this, arguments);
-      }
-
-      logout.toString = function () {
-        return _logout.toString();
-      };
-
-      return logout;
-    }(function () {
-      return dispatch(logout());
-    })
-  };
+  return {};
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_home_page_content__WEBPACK_IMPORTED_MODULE_0__["default"]));
@@ -706,7 +703,7 @@ function (_React$Component) {
       e.preventDefault();
       var user = {
         username: this.state.username === "Username" ? "" : this.state.username,
-        password: this.state.password === "Password" ? "" : this.state.username
+        password: this.state.password === "Password" ? "" : this.state.password
       };
       this.props.processForm(user);
     }
@@ -758,6 +755,9 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, errorStr);
       }
     }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {}
   }, {
     key: "render",
     value: function render() {
