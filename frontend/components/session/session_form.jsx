@@ -65,10 +65,18 @@ class SessionForm extends React.Component {
       this.props.errors.forEach( error => {
         if (error.includes("Username")){
           usernameErrors.push(error);
+          const usernameInput = document.getElementById("loginFormUsernameInput");
+          usernameInput.classList.add("inputFieldErrorStyling");
         } else if (error.includes("Password")) {
           passwordErrors.push(error);
+          const passwordInput = document.getElementById("loginFormPasswordInput");
+          passwordInput.classList.add("inputFieldErrorStyling");
         } else {
           usernameErrors.push(error);
+          const usernameInput = document.getElementById("loginFormUsernameInput");
+          const passwordInput = document.getElementById("loginFormPasswordInput");
+          usernameInput.classList.add("inputFieldErrorStyling");
+          passwordInput.classList.add("inputFieldErrorStyling");
         }
       });
       if (type === "username") {
@@ -118,6 +126,7 @@ class SessionForm extends React.Component {
           <label>
             <input
               type="text"
+              id="loginFormUsernameInput"
               value={this.state.username}
               name="username"
               onChange={this.handleChange}
@@ -128,6 +137,7 @@ class SessionForm extends React.Component {
           <label>
             <input
               type="password"
+              id="loginFormPasswordInput"
               value={this.state.password}
               name="password"
               onChange={this.handleChange}

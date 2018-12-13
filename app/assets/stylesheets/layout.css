@@ -92,8 +92,9 @@
   top: 52px;
 }
 
-.loginInputErrors{
+.inputFieldErrorStyling{
   background-color: rgb(251, 254, 196);
+  border: 2px solid red !important;
 }
 
 /* Home Page Styling */

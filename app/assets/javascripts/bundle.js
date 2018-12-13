@@ -770,10 +770,22 @@ function (_React$Component) {
         this.props.errors.forEach(function (error) {
           if (error.includes("Username")) {
             usernameErrors.push(error);
+            var usernameInput = document.getElementById("loginFormUsernameInput");
+            usernameInput.classList.add("inputFieldErrorStyling");
           } else if (error.includes("Password")) {
             passwordErrors.push(error);
+            var passwordInput = document.getElementById("loginFormPasswordInput");
+            passwordInput.classList.add("inputFieldErrorStyling");
           } else {
             usernameErrors.push(error);
+
+            var _usernameInput = document.getElementById("loginFormUsernameInput");
+
+            var _passwordInput = document.getElementById("loginFormPasswordInput");
+
+            _usernameInput.classList.add("inputFieldErrorStyling");
+
+            _passwordInput.classList.add("inputFieldErrorStyling");
           }
         });
 
@@ -830,12 +842,14 @@ function (_React$Component) {
         className: "loginForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
+        id: "loginFormUsernameInput",
         value: this.state.username,
         name: "username",
         onChange: this.handleChange,
         onClick: this.clearInput
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors("username")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
+        id: "loginFormPasswordInput",
         value: this.state.password,
         name: "password",
         onChange: this.handleChange,
