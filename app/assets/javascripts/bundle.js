@@ -765,27 +765,23 @@ function (_React$Component) {
     key: "renderErrors",
     value: function renderErrors(type) {
       if (this.props.errors && this.props.errors.length !== 0) {
+        var usernameInput = document.getElementById("loginFormUsernameInput");
+        var passwordInput = document.getElementById("loginFormPasswordInput");
+        usernameInput.classList.remove("inputFieldErrorStyling");
+        passwordInput.classList.remove("inputFieldErrorStyling");
         var usernameErrors = [];
         var passwordErrors = [];
         this.props.errors.forEach(function (error) {
           if (error.includes("Username")) {
             usernameErrors.push(error);
-            var usernameInput = document.getElementById("loginFormUsernameInput");
             usernameInput.classList.add("inputFieldErrorStyling");
           } else if (error.includes("Password")) {
             passwordErrors.push(error);
-            var passwordInput = document.getElementById("loginFormPasswordInput");
             passwordInput.classList.add("inputFieldErrorStyling");
           } else {
             usernameErrors.push(error);
-
-            var _usernameInput = document.getElementById("loginFormUsernameInput");
-
-            var _passwordInput = document.getElementById("loginFormPasswordInput");
-
-            _usernameInput.classList.add("inputFieldErrorStyling");
-
-            _passwordInput.classList.add("inputFieldErrorStyling");
+            usernameInput.classList.add("inputFieldErrorStyling");
+            passwordInput.classList.add("inputFieldErrorStyling");
           }
         });
 

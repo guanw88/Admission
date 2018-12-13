@@ -60,21 +60,21 @@ class SessionForm extends React.Component {
 
   renderErrors(type) {
     if (this.props.errors && this.props.errors.length !== 0) {
+      const usernameInput = document.getElementById("loginFormUsernameInput");
+      const passwordInput = document.getElementById("loginFormPasswordInput");
+      usernameInput.classList.remove("inputFieldErrorStyling");
+      passwordInput.classList.remove("inputFieldErrorStyling");
       const usernameErrors = [];
       const passwordErrors = [];
       this.props.errors.forEach( error => {
         if (error.includes("Username")){
           usernameErrors.push(error);
-          const usernameInput = document.getElementById("loginFormUsernameInput");
           usernameInput.classList.add("inputFieldErrorStyling");
         } else if (error.includes("Password")) {
           passwordErrors.push(error);
-          const passwordInput = document.getElementById("loginFormPasswordInput");
           passwordInput.classList.add("inputFieldErrorStyling");
         } else {
           usernameErrors.push(error);
-          const usernameInput = document.getElementById("loginFormUsernameInput");
-          const passwordInput = document.getElementById("loginFormPasswordInput");
           usernameInput.classList.add("inputFieldErrorStyling");
           passwordInput.classList.add("inputFieldErrorStyling");
         }
