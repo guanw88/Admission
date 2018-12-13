@@ -34,6 +34,16 @@
 
 .loginForm {
   width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 320px;
+}
+
+.loginContainer label {
+  width: 100%;
+  margin-bottom: 16px;
+  position: relative;
 }
 
 .loginContainer input {
@@ -43,10 +53,16 @@
   padding: 1px;
   width: 100%;
   margin-bottom: 16px;
+  box-sizing: border-box;
 }
 
 .loginContainer input[type="text"], input[type="password"]{
   padding-left: 10px;
+}
+
+.loginContainer input[type=text]:focus, input[type="password"]:focus {
+  box-shadow: 0 0 5px rgba(117, 161, 242, 1);
+  border: 3px solid rgba(117, 161, 242, 1);
 }
 
 .loginContainer input[type="submit"]{
@@ -54,9 +70,30 @@
   padding: 0px 5px;
   background-color: #f05537;
   color: white;
-  height: 40px;
+  height: 36px;
   font-weight: 600;
   letter-spacing: .2px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all .4s cubic-bezier(.4,0,.3,1);
+}
+
+.loginContainer input[type="submit"]:hover {
+  background-color: #bd3a20;
+}
+
+/* error handling */
+.loginErrors {
+  color: #e02e46;
+  font-size: 13px;
+  line-height: 1.2;
+  padding-top: 4px;
+  position: absolute;
+  top: 52px;
+}
+
+.loginInputErrors{
+  background-color: rgb(251, 254, 196);
 }
 
 /* Home Page Styling */

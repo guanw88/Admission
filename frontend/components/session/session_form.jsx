@@ -60,11 +60,15 @@ class SessionForm extends React.Component {
 
   renderErrors() {
     if (this.props.errors && this.props.errors.length !== 0) {
-      const errorStr = this.props.errors.join(", ");
-      return (
-        <p>{errorStr}</p>
-      );
+      return this.renderUsernameErrors();
     }
+  }
+
+  renderUsernameErrors() {
+    const errorStr = this.props.errors.join(", ");
+    return (
+      <p className="loginErrors">{errorStr}</p>
+    );
   }
 
   componentWillUnmount(){
@@ -88,7 +92,6 @@ class SessionForm extends React.Component {
         <p className="loginIcon">e</p>
         <p className="loginGetStartedText">{loginGetStartedText}</p>
         <p className="loginExplanationText">Enter your username and password to {headerText}.</p>
-        {this.renderErrors()}
         <form onSubmit={this.handleSubmit} className="loginForm">
           <label>
             <input
@@ -97,8 +100,9 @@ class SessionForm extends React.Component {
               name="username"
               onChange={this.handleChange}
               onClick={this.clearInput} />
+            <br/>
+            {this.renderErrors()}
           </label>
-          <br/>
           <label>
             <input
               type="password"
@@ -106,8 +110,9 @@ class SessionForm extends React.Component {
               name="password"
               onChange={this.handleChange}
               onClick={this.clearInput} />
+            <br/>
+            {this.renderErrors()}
           </label>
-          <br/>
           <input type="submit" value={buttonText}></input>
           {demoLoginButton}
         </form>

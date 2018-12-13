@@ -765,9 +765,16 @@ function (_React$Component) {
     key: "renderErrors",
     value: function renderErrors() {
       if (this.props.errors && this.props.errors.length !== 0) {
-        var errorStr = this.props.errors.join(", ");
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, errorStr);
+        return this.renderUsernameErrors();
       }
+    }
+  }, {
+    key: "renderUsernameErrors",
+    value: function renderUsernameErrors() {
+      var errorStr = this.props.errors.join(", ");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "loginErrors"
+      }, errorStr);
     }
   }, {
     key: "componentWillUnmount",
@@ -794,7 +801,7 @@ function (_React$Component) {
         className: "loginGetStartedText"
       }, loginGetStartedText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "loginExplanationText"
-      }, "Enter your username and password to ", headerText, "."), this.renderErrors(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, "Enter your username and password to ", headerText, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         onSubmit: this.handleSubmit,
         className: "loginForm"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -803,13 +810,13 @@ function (_React$Component) {
         name: "username",
         onChange: this.handleChange,
         onClick: this.clearInput
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         value: this.state.password,
         name: "password",
         onChange: this.handleChange,
         onClick: this.clearInput
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: buttonText
       }), demoLoginButton));
