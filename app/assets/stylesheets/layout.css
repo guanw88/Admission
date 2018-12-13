@@ -182,3 +182,46 @@
   height: 28px;
   width: 28px;
 }
+
+/* Filter Icons */
+.filterIconsContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 143px;
+}
+
+.filterIconBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(27, 13, 57);
+  font-family: 'Libre Franklin', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  width: 175px;
+  height: 135px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.filterIconCircle {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+  background-color: rgb(27, 13, 57);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.filterIconCircle:hover {
+  background-color: #4b4d63;
+}
+
+.filterIconCircle img {
+  height: 28px;
+  width: 28px;
+}
