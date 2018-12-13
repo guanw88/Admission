@@ -763,15 +763,39 @@ function (_React$Component) {
     }
   }, {
     key: "renderErrors",
-    value: function renderErrors() {
+    value: function renderErrors(type) {
       if (this.props.errors && this.props.errors.length !== 0) {
-        return this.renderUsernameErrors();
+        var usernameErrors = [];
+        var passwordErrors = [];
+        this.props.errors.forEach(function (error) {
+          if (error.includes("Username")) {
+            usernameErrors.push(error);
+          } else if (error.includes("Password")) {
+            passwordErrors.push(error);
+          } else {
+            usernameErrors.push(error);
+          }
+        });
+
+        if (type === "username") {
+          return this.renderUsernameErrors(usernameErrors);
+        } else {
+          return this.renderPasswordErrors(passwordErrors);
+        }
       }
     }
   }, {
     key: "renderUsernameErrors",
-    value: function renderUsernameErrors() {
-      var errorStr = this.props.errors.join(", ");
+    value: function renderUsernameErrors(errors) {
+      var errorStr = errors.join(", ");
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "loginErrors"
+      }, errorStr);
+    }
+  }, {
+    key: "renderPasswordErrors",
+    value: function renderPasswordErrors(errors) {
+      var errorStr = errors.join(", ");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "loginErrors"
       }, errorStr);
@@ -810,13 +834,13 @@ function (_React$Component) {
         name: "username",
         onChange: this.handleChange,
         onClick: this.clearInput
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors("username")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "password",
         value: this.state.password,
         name: "password",
         onChange: this.handleChange,
         onClick: this.clearInput
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.renderErrors("password")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: buttonText
       }), demoLoginButton));

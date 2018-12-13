@@ -58,14 +58,36 @@ class SessionForm extends React.Component {
     }
   }
 
-  renderErrors() {
+  renderErrors(type) {
     if (this.props.errors && this.props.errors.length !== 0) {
-      return this.renderUsernameErrors();
+      const usernameErrors = [];
+      const passwordErrors = [];
+      this.props.errors.forEach( error => {
+        if (error.includes("Username")){
+          usernameErrors.push(error);
+        } else if (error.includes("Password")) {
+          passwordErrors.push(error);
+        } else {
+          usernameErrors.push(error);
+        }
+      });
+      if (type === "username") {
+        return this.renderUsernameErrors(usernameErrors);
+      } else {
+        return this.renderPasswordErrors(passwordErrors);
+      }
     }
   }
 
-  renderUsernameErrors() {
-    const errorStr = this.props.errors.join(", ");
+  renderUsernameErrors(errors) {
+    const errorStr = errors.join(", ");
+    return (
+      <p className="loginErrors">{errorStr}</p>
+    );
+  }
+
+  renderPasswordErrors(errors) {
+    const errorStr = errors.join(", ");
     return (
       <p className="loginErrors">{errorStr}</p>
     );
@@ -101,7 +123,7 @@ class SessionForm extends React.Component {
               onChange={this.handleChange}
               onClick={this.clearInput} />
             <br/>
-            {this.renderErrors()}
+            {this.renderErrors("username")}
           </label>
           <label>
             <input
@@ -111,7 +133,7 @@ class SessionForm extends React.Component {
               onChange={this.handleChange}
               onClick={this.clearInput} />
             <br/>
-            {this.renderErrors()}
+            {this.renderErrors("password")}
           </label>
           <input type="submit" value={buttonText}></input>
           {demoLoginButton}
