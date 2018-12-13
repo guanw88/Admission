@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Slider from './slider';
+import EventFilterBox from './event_filter_box';
 
 class HomePageContent extends React.Component {
   constructor(props) {
@@ -9,7 +10,10 @@ class HomePageContent extends React.Component {
 
   render() {
     return (
-      <Slider millisecToNextSlide={20000} />
+      <div>
+        <Slider millisecToNextSlide={20000} />
+        <EventFilterBox />
+      </div>
     );
   }
 

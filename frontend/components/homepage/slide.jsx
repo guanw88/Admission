@@ -8,7 +8,10 @@ class Slide extends React.Component {
 
   render() {
     return (
-      <img className="sliderImage" src={this.props.image} />
+      <div>
+        <p className="sliderOverlayText">{this.props.imageText}</p>
+        <img className="sliderImage" src={this.props.image} />
+      </div>
     );
   }
 

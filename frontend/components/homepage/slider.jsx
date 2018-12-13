@@ -10,6 +10,10 @@ class Slider extends React.Component {
         window.sliderImage1,
         window.sliderImage2
       ],
+      imageText: [
+        "Do More of What You Love",
+        "Never Do Nothing Again"
+      ],
       index: 0,
       time: new Date()
     };
@@ -32,7 +36,10 @@ class Slider extends React.Component {
 
   render() {
     return (
-      <Slide key={this.state.index} image={this.state.images[this.state.index]} />
+      <Slide
+          key={this.state.index}
+          image={this.state.images[this.state.index]}
+          imageText = {this.state.imageText[this.state.index]}/>
     );
   }
 

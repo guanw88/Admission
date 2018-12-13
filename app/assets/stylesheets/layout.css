@@ -98,7 +98,46 @@
 }
 
 /* Home Page Styling */
+/* Slider */
 .sliderImage {
-  height: 529px;
+  height: 520px;
   width: 100%;
+  position: relative;
+}
+
+.sliderOverlayText{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  color: white;
+  text-transform: uppercase;
+  font-size: 64px;
+  font-weight: bold;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+/* Event Filter Box */
+.eventFilterBoxContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 97px;
+  position: absolute;
+  bottom: 21px;
+}
+.eventFilterBox {
+  background-color: rgb(27, 13, 57);
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  z-index: 1;
+  padding: 16px 4px;
+}
+
+.eventFilterBox p {
+  line-height: 1.3;
+  font-size: 13px;
 }
