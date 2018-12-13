@@ -225,3 +225,44 @@
   height: 28px;
   width: 28px;
 }
+
+/* Event Display Container */
+.eventDisplayContainer {
+  position: relative;
+  top: -94px;
+  color: #1e0a3c;
+  background-color: #f8f7fa;
+}
+
+/* Categories */
+.categoryFilterContainer p {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 26px;
+  font-weight: bolder;
+  margin-bottom: 24px;
+  padding: 40px 12px 0 12px;
+}
+
+.categoryFilters li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 600;
+  padding: 0 16px;
+  background-color: white;
+  margin-left: 12px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  background-color: white;
+  transition: all .24s cubic-bezier(.4,0,.3,1);
+  cursor: pointer;
+}
+
+.categoryFilters .selectedCategory {
+  color: white;
+  background-color: rgb(27, 13, 57);
+}
