@@ -107,15 +107,16 @@
 
 .sliderOverlayText{
   position: absolute;
-  top: 50%;
+  top: 44%;
   left: 0;
   width: 100%;
   z-index: 1;
   color: white;
   text-transform: uppercase;
-  font-size: 64px;
+  font-size: 68px;
   font-weight: bold;
   font-family: 'Libre Franklin', sans-serif;
+  text-align: center;
 }
 
 /* Event Filter Box */
@@ -124,8 +125,8 @@
   justify-content: center;
   width: 100%;
   height: 97px;
-  position: absolute;
-  bottom: 21px;
+  position: relative;
+  bottom: 156px;
 }
 .eventFilterBox {
   background-color: rgb(27, 13, 57);
@@ -134,10 +135,50 @@
   justify-content: space-between;
   color: white;
   z-index: 1;
-  padding: 16px 4px;
+  padding: 16px 4px 16px 10px;
 }
 
 .eventFilterBox p {
   line-height: 1.3;
   font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.eventFilterBox input[type=text] {
+  margin-top: 1px;
+  font-size: 1.2rem;
+  line-height: 1.25;
+}
+
+.eventFilterBox input[type=text],input[type=date]  {
+  width: 95%;
+  border-bottom: 1px solid rgb(223, 96, 67);
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.searchButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10%;
+}
+
+.searchButton {
+  height: 48px;
+  width: 48px;
+  background-color: #f05537;
+  border-radius: 4px;
+  transition: all .4s cubic-bezier(.4,0,.3,1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchButton:hover {
+  background-color: #bd3a20;
+}
+
+.searchButton img {
+  height: 28px;
+  width: 28px;
 }

@@ -395,18 +395,25 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "locationFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        placeholder: "Los Angeles, CA"
+        type: "text",
+        placeholder: "Los Angeles"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "categoryFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Looking For"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
         placeholder: "Event"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "dateFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "On"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
         placeholder: "Any Date"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "searchButtonContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "searchButton"
-      }, "Search Button")));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.searchIcon
+      })))));
     }
   }]);
 

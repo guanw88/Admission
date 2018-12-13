@@ -14,7 +14,8 @@ class EventFilterBox extends React.Component {
             <p>In</p>
             <label>
               <input
-                placeholder="Los Angeles, CA">
+                type="text"
+                placeholder="Los Angeles">
               </input>
             </label>
           </div>
@@ -22,6 +23,7 @@ class EventFilterBox extends React.Component {
             <p>Looking For</p>
             <label>
               <input
+                type="text"
                 placeholder="Event">
               </input>
             </label>
@@ -30,11 +32,16 @@ class EventFilterBox extends React.Component {
             <p>On</p>
             <label>
               <input
+                type="date"
                 placeholder="Any Date">
               </input>
             </label>
           </div>
-          <div className="searchButton">Search Button</div>
+          <div className="searchButtonContainer">
+            <div className="searchButton">
+              <img src={window.searchIcon} />
+            </div>
+          </div>
         </div>
       </div>
     );
