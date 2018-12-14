@@ -703,7 +703,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "eventListingContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "eventListingImage",
         src: this.props.image
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -720,7 +722,7 @@ function (_React$Component) {
         className: "eventListingName"
       }, this.props.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingInfo"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name)))));
+      }, this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name))));
     }
   }]);
 

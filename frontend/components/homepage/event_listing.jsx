@@ -20,7 +20,7 @@ class EventListing extends React.Component {
 
   render() {
     return (
-      <li>
+      <li className="eventListingContainer">
         <img className="eventListingImage" src={this.props.image} />
         <div className="eventListingDetails">
           <div className="eventListingDateContainer">
@@ -30,12 +30,10 @@ class EventListing extends React.Component {
         <div className="eventListingDescriptionContainer">
           <div className="eventListingName">{this.props.name}</div>
           <div className="eventListingInfo">
-            <p>
               {this.props.name}<br/>
               {this.props.name}<br/>
               {this.props.name}<br/>
               {this.props.name}
-            </p>
           </div>
         </div>
         </div>

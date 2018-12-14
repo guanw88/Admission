@@ -284,11 +284,19 @@
 }
 
 .eventGrid li {
-  width: 33%;
-  padding: 12px 8px;
+  width: 32%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin: 12px 4px;
+}
+
+.eventGrid li:hover {
+  box-shadow: 0 4px 15px 0 rgba(40,44,53,.06), 0 2px 2px 0 rgba(40,44,53,.08);
+  background-color: #fff;
+  /* background-color: blue; */
+  border-radius: 4px;
+  z-index: 1;
 }
 
 .eventListingImage {
