@@ -5,7 +5,6 @@
 #  id                    :bigint(8)        not null, primary key
 #  event_date            :date             not null
 #  event_name            :string           not null
-#  organizer_id          :integer          not null
 #  num_tickets_available :integer          not null
 #  start_datetime        :datetime         not null
 #  end_datetime          :datetime         not null

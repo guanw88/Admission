@@ -5,7 +5,6 @@
 #  id                    :bigint(8)        not null, primary key
 #  event_date            :date             not null
 #  event_name            :string           not null
-#  organizer_id          :integer          not null
 #  num_tickets_available :integer          not null
 #  start_datetime        :datetime         not null
 #  end_datetime          :datetime         not null
@@ -30,5 +29,12 @@ class Event < ApplicationRecord
   #   foreign_key: :organizer_id,
   #   className: :User
 
+# add validation that start time cannot be before end time
+# validate that state and zip are of valid length
+# validate that num_tickets_available is positive
+
+  def substr1(str)
+    str[0]
+  end
 
 end

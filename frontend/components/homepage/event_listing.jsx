@@ -6,34 +6,47 @@ class EventListing extends React.Component {
     super(props);
   }
 
-  // Placeholder function; need to actually convert from database date
-  extractMonFromDate(date) {
-    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    return months[Math.floor ( Math.random() * months.length )];
+  extractStartMon(datetime) {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const dateObject = new Date(datetime);
+    return months[dateObject.getMonth()]
   }
 
-  // Placeholder function; need to actually convert from database date
-  extractDayFromDate(date) {
-    const days = ["01","12","23","24","29"];
-    return days[Math.floor ( Math.random() * days.length )];
+  extractStartDay(datetime) {
+    const dateObject = new Date(datetime);
+    return dateObject.getDate();
+  }
+
+  formatStartDatetime(datetime) {
+    const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const dateObject = new Date(datetime);
+    const hours = dateObject.getHours();
+    const ampm = hours > 0 && hours < 12 ? "am" : "pm";
+    return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " +
+      this.extractStartDay(datetime) + ", " + dateObject.getHours() + ":" + dateObject.getMinutes() + ampm;
+  }
+
+  // question for Liz: should I add price to my events table or get the data from the tickets table later
+  formatPrice(price) {
+    return price = 0 ? "Free" : "Starts at $" + price.toFixed(2);
   }
 
   render() {
+    const event = this.props.event;
     return (
       <li className="eventListingContainer">
-        <img className="eventListingImage" src={this.props.image} />
+        <img className="eventListingImage" src={event.image_url} />
         <div className="eventListingDetails">
           <div className="eventListingDateContainer">
-            <div className="eventListingMonth">{this.extractMonFromDate(this.props.date)}</div><br/>
-            <div className="eventListingDay">{this.extractDayFromDate(this.props.date)}</div>
+            <div className="eventListingMonth">{this.extractStartMon(event.start_datetime)}</div>
+            <div className="eventListingDay">{this.extractStartDay(event.start_datetime)}</div>
         </div>
         <div className="eventListingDescriptionContainer">
-          <div className="eventListingName">{this.props.name}</div>
+          <div className="eventListingName">{event.name}</div>
           <div className="eventListingInfo">
-              {this.props.name}<br/>
-              {this.props.name}<br/>
-              {this.props.name}<br/>
-              {this.props.name}
+              {this.formatStartDatetime(event.start_datetime)}<br/>
+              {event.address + ", " + event.city + ", " + event.state}<br/>
+              {this.formatPrice(3.00)}
           </div>
         </div>
         </div>

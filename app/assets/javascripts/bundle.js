@@ -86,6 +86,44 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/event_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/event_actions.js ***!
+  \*******************************************/
+/*! exports provided: RECEIVE_EVENTS, receiveEvents, requestEvents */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENTS", function() { return RECEIVE_EVENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvents", function() { return receiveEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvents", function() { return requestEvents; });
+/* harmony import */ var _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/event_api_util */ "./frontend/util/event_api_util.js");
+
+var RECEIVE_EVENTS = "RECEIVE_EVENTS";
+var receiveEvents = function receiveEvents(events) {
+  return {
+    type: RECEIVE_EVENTS,
+    events: events
+  };
+};
+
+var dispatchErrors = function dispatchErrors(dispatch, xhr) {
+  dispatch(receiveErrors(xhr.responseJSON));
+};
+
+var requestEvents = function requestEvents() {
+  return function (dispatch) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchEvents"]().then(function (events) {
+      return dispatch(receiveEvents(events));
+    }, function (xhr) {
+      return dispatchErrors(dispatch, xhr);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -542,13 +580,28 @@ function (_React$Component) {
   }
 
   _createClass(EventDisplay, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.requestEvents();
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "eventDisplayContainer"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_category_filter_display__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        text: "In the mood for..."
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_listings__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+      if (this.props.events && Object.keys(this.props.events).length !== 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "eventDisplayContainer"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_category_filter_display__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          text: "In the mood for..."
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_listings__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          events: this.props.events
+        }));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "eventDisplayContainer"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_category_filter_display__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          text: "In the mood for..."
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Insert loading circle here..."));
+      }
     }
   }]);
 
@@ -556,6 +609,51 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (EventDisplay);
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/event_display_container.js":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/homepage/event_display_container.js ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event_display */ "./frontend/components/homepage/event_display.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_event_actions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/event_actions.js */ "./frontend/actions/event_actions.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    events: state.entities.events
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestEvents: function (_requestEvents) {
+      function requestEvents() {
+        return _requestEvents.apply(this, arguments);
+      }
+
+      requestEvents.toString = function () {
+        return _requestEvents.toString();
+      };
+
+      return requestEvents;
+    }(function () {
+      return dispatch(requestEvents());
+    })
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_event_display__WEBPACK_IMPORTED_MODULE_0__["default"]));
 
 /***/ }),
 
@@ -642,6 +740,34 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/homepage/event_filter_box_container.js":
+/*!********************************************************************!*\
+  !*** ./frontend/components/homepage/event_filter_box_container.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_filter_box__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event_filter_box */ "./frontend/components/homepage/event_filter_box.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_event_filter_box__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/homepage/event_listing.jsx":
 /*!********************************************************!*\
   !*** ./frontend/components/homepage/event_listing.jsx ***!
@@ -684,45 +810,60 @@ function (_React$Component) {
     _classCallCheck(this, EventListing);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(EventListing).call(this, props));
-  } // Placeholder function; need to actually convert from database date
-
+  }
 
   _createClass(EventListing, [{
-    key: "extractMonFromDate",
-    value: function extractMonFromDate(date) {
-      var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-      return months[Math.floor(Math.random() * months.length)];
-    } // Placeholder function; need to actually convert from database date
+    key: "extractStartMon",
+    value: function extractStartMon(datetime) {
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var dateObject = new Date(datetime);
+      return months[dateObject.getMonth()];
+    }
+  }, {
+    key: "extractStartDay",
+    value: function extractStartDay(datetime) {
+      var dateObject = new Date(datetime);
+      return dateObject.getDate();
+    }
+  }, {
+    key: "formatStartDatetime",
+    value: function formatStartDatetime(datetime) {
+      var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var dateObject = new Date(datetime);
+      var hours = dateObject.getHours();
+      var ampm = hours > 0 && hours < 12 ? "am" : "pm";
+      return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " + this.extractStartDay(datetime) + ", " + dateObject.getHours() + ":" + dateObject.getMinutes() + ampm;
+    } // question for Liz: should I add price to my events table or get the data from the tickets table later
 
   }, {
-    key: "extractDayFromDate",
-    value: function extractDayFromDate(date) {
-      var days = ["01", "12", "23", "24", "29"];
-      return days[Math.floor(Math.random() * days.length)];
+    key: "formatPrice",
+    value: function formatPrice(price) {
+      return price = 0 ? undefined : "Starts at $" + price.toFixed(2);
     }
   }, {
     key: "render",
     value: function render() {
+      var event = this.props.event;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "eventListingContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "eventListingImage",
-        src: this.props.image
+        src: event.image_url
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingDetails"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingDateContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingMonth"
-      }, this.extractMonFromDate(this.props.date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.extractStartMon(event.start_datetime)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingDay"
-      }, this.extractDayFromDate(this.props.date))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.extractStartDay(event.start_datetime))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingDescriptionContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingName"
-      }, this.props.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, event.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingInfo"
-      }, this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name))));
+      }, this.formatStartDatetime(event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), event.address + ", " + event.city + ", " + event.state, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatPrice(3.00)))));
     }
   }]);
 
@@ -774,116 +915,117 @@ function (_React$Component) {
   _inherits(EventListings, _React$Component);
 
   function EventListings(props) {
-    var _this;
-
     _classCallCheck(this, EventListings);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(EventListings).call(this, props));
-    _this.state = {
-      events: [{
-        id: 1,
-        date: "2019-01-01",
-        eventName: "New Year's Party at App Academy",
-        startTime: "13:00",
-        endTime: "19:00",
-        address: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "12345",
-        numTicketsAvailable: 100,
-        description: "Join us at App Academy to celebrate the New Year!",
-        imageUrl: "http://test.com/image.png",
-        privateEventYN: true,
-        categories: ["Concert", "Free"]
-      }, {
-        id: 2,
-        date: "2019-01-02",
-        eventName: "Next Event",
-        startTime: "13:00",
-        endTime: "19:00",
-        address: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "12345",
-        numTicketsAvailable: 100,
-        description: "Join us at App Academy to celebrate the New Year!",
-        imageUrl: "http://test.com/image.png",
-        privateEventYN: true,
-        categories: ["Concert", "Free"]
-      }, {
-        id: 3,
-        date: "2019-01-02",
-        eventName: "Event 3",
-        startTime: "13:00",
-        endTime: "19:00",
-        address: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "12345",
-        numTicketsAvailable: 100,
-        description: "Join us at App Academy to celebrate the New Year!",
-        imageUrl: "http://test.com/image.png",
-        privateEventYN: true,
-        categories: ["Concert", "Free"]
-      }, {
-        id: 4,
-        date: "2019-01-02",
-        eventName: "Event 4 Super Long Name Legitimatewordthatisextremelylong",
-        startTime: "13:00",
-        endTime: "19:00",
-        address: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "12345",
-        numTicketsAvailable: 100,
-        description: "Join us at App Academy to celebrate the New Year!",
-        imageUrl: "http://test.com/image.png",
-        privateEventYN: true,
-        categories: ["Concert", "Free"]
-      }, {
-        id: 5,
-        date: "2019-01-02",
-        eventName: "Weird characters(*&(*&(*()*&(!*@$)*&)))",
-        startTime: "13:00",
-        endTime: "19:00",
-        address: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "12345",
-        numTicketsAvailable: 100,
-        description: "Join us at App Academy to celebrate the New Year!",
-        imageUrl: "http://test.com/image.png",
-        privateEventYN: true,
-        categories: ["Concert", "Free"]
-      }, {
-        id: 6,
-        date: "2019-01-02",
-        eventName: "Short Name",
-        startTime: "13:00",
-        endTime: "19:00",
-        address: "123 Main Street",
-        city: "San Francisco",
-        state: "CA",
-        zip: "12345",
-        numTicketsAvailable: 100,
-        description: "Join us at App Academy to celebrate the New Year!",
-        imageUrl: "http://test.com/image.png",
-        privateEventYN: true,
-        categories: ["Concert", "Free"]
-      }]
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(EventListings).call(this, props)); // this.state = {
+    //   events: [
+    //     {
+    //       id: 1,
+    //       date: "2019-01-01",
+    //       eventName: "New Year's Party at App Academy",
+    //       startTime: "13:00",
+    //       endTime: "19:00",
+    //       address: "123 Main Street",
+    //       city: "San Francisco",
+    //       state: "CA",
+    //       zip: "12345",
+    //       numTicketsAvailable: 100,
+    //       description: "Join us at App Academy to celebrate the New Year!",
+    //       imageUrl: "http://test.com/image.png",
+    //       privateEventYN: true,
+    //       categories: ["Concert", "Free"]
+    //     },
+    //     {
+    //       id: 2,
+    //       date: "2019-01-02",
+    //       eventName: "Next Event",
+    //       startTime: "13:00",
+    //       endTime: "19:00",
+    //       address: "123 Main Street",
+    //       city: "San Francisco",
+    //       state: "CA",
+    //       zip: "12345",
+    //       numTicketsAvailable: 100,
+    //       description: "Join us at App Academy to celebrate the New Year!",
+    //       imageUrl: "http://test.com/image.png",
+    //       privateEventYN: true,
+    //       categories: ["Concert", "Free"]
+    //     },
+    //     {
+    //       id: 3,
+    //       date: "2019-01-02",
+    //       eventName: "Event 3",
+    //       startTime: "13:00",
+    //       endTime: "19:00",
+    //       address: "123 Main Street",
+    //       city: "San Francisco",
+    //       state: "CA",
+    //       zip: "12345",
+    //       numTicketsAvailable: 100,
+    //       description: "Join us at App Academy to celebrate the New Year!",
+    //       imageUrl: "http://test.com/image.png",
+    //       privateEventYN: true,
+    //       categories: ["Concert", "Free"]
+    //     },
+    //     {
+    //       id: 4,
+    //       date: "2019-01-02",
+    //       eventName: "Event 4 Super Long Name Legitimatewordthatisextremelylong",
+    //       startTime: "13:00",
+    //       endTime: "19:00",
+    //       address: "123 Main Street",
+    //       city: "San Francisco",
+    //       state: "CA",
+    //       zip: "12345",
+    //       numTicketsAvailable: 100,
+    //       description: "Join us at App Academy to celebrate the New Year!",
+    //       imageUrl: "http://test.com/image.png",
+    //       privateEventYN: true,
+    //       categories: ["Concert", "Free"]
+    //     },
+    //     {
+    //       id: 5,
+    //       date: "2019-01-02",
+    //       eventName: "Weird characters(*&(*&(*()*&(!*@$)*&)))",
+    //       startTime: "13:00",
+    //       endTime: "19:00",
+    //       address: "123 Main Street",
+    //       city: "San Francisco",
+    //       state: "CA",
+    //       zip: "12345",
+    //       numTicketsAvailable: 100,
+    //       description: "Join us at App Academy to celebrate the New Year!",
+    //       imageUrl: "http://test.com/image.png",
+    //       privateEventYN: true,
+    //       categories: ["Concert", "Free"]
+    //     },
+    //     {
+    //       id: 6,
+    //       date: "2019-01-02",
+    //       eventName: "Short Name",
+    //       startTime: "13:00",
+    //       endTime: "19:00",
+    //       address: "123 Main Street",
+    //       city: "San Francisco",
+    //       state: "CA",
+    //       zip: "12345",
+    //       numTicketsAvailable: 100,
+    //       description: "Join us at App Academy to celebrate the New Year!",
+    //       imageUrl: "http://test.com/image.png",
+    //       privateEventYN: true,
+    //       categories: ["Concert", "Free"]
+    //     }
+    //   ]
+    // };
   }
 
   _createClass(EventListings, [{
     key: "render",
     value: function render() {
-      var events = this.state.events.map(function (event) {
+      var events = Object.values(this.props.events).map(function (event) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_listing__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: event.id,
-          name: event.eventName,
-          image: window.sliderImage1,
-          date: event.date
+          event: event
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1039,6 +1181,34 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/homepage/filter_icons_container.js":
+/*!****************************************************************!*\
+  !*** ./frontend/components/homepage/filter_icons_container.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _filter_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filter_icons */ "./frontend/components/homepage/filter_icons.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_filter_icons__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/homepage/home_page_container.js":
 /*!*************************************************************!*\
   !*** ./frontend/components/homepage/home_page_container.js ***!
@@ -1080,9 +1250,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _slider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./slider */ "./frontend/components/homepage/slider.jsx");
-/* harmony import */ var _event_filter_box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./event_filter_box */ "./frontend/components/homepage/event_filter_box.jsx");
-/* harmony import */ var _filter_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./filter_icons */ "./frontend/components/homepage/filter_icons.jsx");
-/* harmony import */ var _event_display__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./event_display */ "./frontend/components/homepage/event_display.jsx");
+/* harmony import */ var _event_filter_box_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./event_filter_box_container */ "./frontend/components/homepage/event_filter_box_container.js");
+/* harmony import */ var _filter_icons_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./filter_icons_container */ "./frontend/components/homepage/filter_icons_container.js");
+/* harmony import */ var _event_display_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./event_display_container */ "./frontend/components/homepage/event_display_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1124,7 +1294,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_slider__WEBPACK_IMPORTED_MODULE_2__["default"], {
         millisecToNextSlide: 20000
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_filter_box__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icons__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_display__WEBPACK_IMPORTED_MODULE_5__["default"], null));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_filter_box_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icons_container__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_display_container__WEBPACK_IMPORTED_MODULE_5__["default"], null));
     }
   }]);
 
@@ -1303,7 +1473,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app */ "./frontend/components/app.jsx");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app */ "./frontend/components/app.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 
@@ -1314,7 +1484,7 @@ var Root = function Root(_ref) {
   var store = _ref.store;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_1__["Provider"], {
     store: store
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_app__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_app__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Root);
@@ -1629,7 +1799,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_root__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/root */ "./frontend/components/root.jsx");
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/store */ "./frontend/store/store.js");
 /* harmony import */ var _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/session_api_util */ "./frontend/util/session_api_util.js");
+/* harmony import */ var _util_event_api_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/event_api_util */ "./frontend/util/event_api_util.js");
+/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions/event_actions */ "./frontend/actions/event_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -1657,8 +1831,9 @@ document.addEventListener('DOMContentLoaded', function () {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   testApiUtil();
-  var root = document.getElementById('root'); // ReactDOM.render(<Root store={store} />, root);
-
+  testEventUtil();
+  testEventActions();
+  var root = document.getElementById('root');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_root__WEBPACK_IMPORTED_MODULE_2__["default"], {
     store: store
   }), root);
@@ -1668,6 +1843,14 @@ var testApiUtil = function testApiUtil() {
   window.signup = _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__["signup"];
   window.login = _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__["login"];
   window.logout = _util_session_api_util__WEBPACK_IMPORTED_MODULE_4__["logout"];
+};
+
+var testEventUtil = function testEventUtil() {
+  window.fetchEvents = _util_event_api_util__WEBPACK_IMPORTED_MODULE_5__["fetchEvents"];
+};
+
+var testEventActions = function testEventActions() {
+  window.requestEvents = _actions_event_actions__WEBPACK_IMPORTED_MODULE_6__["requestEvents"];
 };
 
 /***/ }),
@@ -1682,11 +1865,14 @@ var testApiUtil = function testApiUtil() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
+/* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
+/* harmony import */ var _events_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./events_reducer */ "./frontend/reducers/events_reducer.js");
+
 
 
 var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  users: _users_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  events: _events_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (entitiesReducer);
 
@@ -1702,13 +1888,46 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
+/* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
 
 
 var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/events_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/events_reducer.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/event_actions */ "./frontend/actions/event_actions.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var eventsReducer = function eventsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_EVENTS"]:
+      return action.events;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (eventsReducer);
 
 /***/ }),
 
@@ -1723,7 +1942,7 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
-/* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
+/* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
 /* harmony import */ var _entities_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./entities_reducer */ "./frontend/reducers/entities_reducer.js");
 
 
@@ -1731,7 +1950,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   entities: _entities_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  session: _session_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  session: _session_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
@@ -1783,7 +2002,7 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 
 
 var sessionReducer = function sessionReducer() {
@@ -1792,12 +2011,12 @@ var sessionReducer = function sessionReducer() {
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CURRENT_USER"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return Object.assign({}, state, {
         id: action.currentUser.id
       });
 
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["LOGOUT_CURRENT_USER"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT_CURRENT_USER"]:
       return {
         id: null
       };
@@ -1820,7 +2039,7 @@ var sessionReducer = function sessionReducer() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1834,7 +2053,7 @@ var usersReducer = function usersReducer() {
   Object.freeze(state);
 
   switch (action.type) {
-    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CURRENT_USER"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.currentUser.id, action.currentUser));
 
     default:
@@ -1871,6 +2090,25 @@ var configureStore = function configureStore() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
+
+/***/ }),
+
+/***/ "./frontend/util/event_api_util.js":
+/*!*****************************************!*\
+  !*** ./frontend/util/event_api_util.js ***!
+  \*****************************************/
+/*! exports provided: fetchEvents */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvents", function() { return fetchEvents; });
+var fetchEvents = function fetchEvents() {
+  return $.ajax({
+    type: "GET",
+    url: "/api/events"
+  });
+};
 
 /***/ }),
 

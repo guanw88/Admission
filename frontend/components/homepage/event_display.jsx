@@ -8,13 +8,26 @@ class EventDisplay extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.requestEvents();
+  }
+
   render() {
-    return (
-      <div className="eventDisplayContainer">
-        <CategoryFilterDisplay text="In the mood for..."/>
-        <EventListings />
-      </div>
-    );
+    if (this.props.events && Object.keys(this.props.events).length !== 0) {
+      return (
+        <div className="eventDisplayContainer">
+          <CategoryFilterDisplay text="In the mood for..."/>
+          <EventListings events={this.props.events} />
+        </div>
+      );
+    } else {
+      return (
+        <div className="eventDisplayContainer">
+          <CategoryFilterDisplay text="In the mood for..."/>
+          <p>Insert loading circle here...</p>
+        </div>
+      )
+    }
   }
 
 

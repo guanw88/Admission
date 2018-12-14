@@ -5,6 +5,8 @@ import Root from './components/root';
 import configureStore from './store/store';
 
 import { signup, login, logout } from "./util/session_api_util";
+import { fetchEvents } from "./util/event_api_util";
+import { requestEvents } from './actions/event_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -23,9 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   testApiUtil();
+  testEventUtil();
+  testEventActions();
 
   const root = document.getElementById('root');
-  // ReactDOM.render(<Root store={store} />, root);
   ReactDOM.render(<Root store={ store }/>, root);
 });
 
@@ -34,3 +37,11 @@ const testApiUtil = () => {
   window.login = login;
   window.logout = logout;
 };
+
+const testEventUtil = () => {
+  window.fetchEvents = fetchEvents;
+}
+
+const testEventActions = () => {
+  window.requestEvents = requestEvents;
+}
