@@ -1,3 +1,7 @@
+#root {
+  background-color: #f8f7fa;
+}
+
 /* Login and Signup Page Styling */
 .loginContainer {
   margin: 0 auto;
@@ -231,7 +235,6 @@
   position: relative;
   top: -94px;
   color: #1e0a3c;
-  background-color: #f8f7fa;
 }
 
 /* Categories */
@@ -265,4 +268,89 @@
 .categoryFilters .selectedCategory {
   color: white;
   background-color: rgb(27, 13, 57);
+}
+
+/* Events */
+.eventGridContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.eventGrid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.eventGrid li {
+  width: 33%;
+  padding: 12px 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.eventListingImage {
+  height: 174px;
+  overflow: hidden;
+  border: 1px solid #eeedf2;
+  border-radius: 4px;
+  transition: border-radius .24s cubic-bezier(.4,0,.3,1), border .24s cubic-bezier(.4,0,.3,1);
+}
+
+.eventListingDetails {
+  padding: 24px;
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.eventListingDateContainer {
+  float: left;
+  display: block;
+  padding-right: 16px;
+}
+
+.eventListingMonth {
+  color: #f05537;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.eventListingDay {
+  color: #6f7287;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.eventListingDescriptionContainer {
+  float: right;
+  display: block;
+  width: 75%;
+}
+
+.eventListingName {
+  color: #39364f;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.eventListingInfo {
+  color: #6f7287;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 400;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

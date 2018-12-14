@@ -506,6 +506,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _category_filter_display__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./category_filter_display */ "./frontend/components/homepage/category_filter_display.jsx");
+/* harmony import */ var _event_listings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./event_listings */ "./frontend/components/homepage/event_listings.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -523,6 +524,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -546,7 +548,7 @@ function (_React$Component) {
         className: "eventDisplayContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_category_filter_display__WEBPACK_IMPORTED_MODULE_2__["default"], {
         text: "In the mood for..."
-      }));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_listings__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -637,6 +639,263 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (EventFilterBox);
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/event_listing.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/homepage/event_listing.jsx ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var EventListing =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(EventListing, _React$Component);
+
+  function EventListing(props) {
+    _classCallCheck(this, EventListing);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EventListing).call(this, props));
+  } // Placeholder function; need to actually convert from database date
+
+
+  _createClass(EventListing, [{
+    key: "extractMonFromDate",
+    value: function extractMonFromDate(date) {
+      var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      return months[Math.floor(Math.random() * months.length)];
+    } // Placeholder function; need to actually convert from database date
+
+  }, {
+    key: "extractDayFromDate",
+    value: function extractDayFromDate(date) {
+      var days = ["01", "12", "23", "24", "29"];
+      return days[Math.floor(Math.random() * days.length)];
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "eventListingImage",
+        src: this.props.image
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingDetails"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingDateContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingMonth"
+      }, this.extractMonFromDate(this.props.date)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingDay"
+      }, this.extractDayFromDate(this.props.date))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingDescriptionContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingName"
+      }, this.props.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingInfo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.name)))));
+    }
+  }]);
+
+  return EventListing;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EventListing);
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/event_listings.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/homepage/event_listings.jsx ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _event_listing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./event_listing */ "./frontend/components/homepage/event_listing.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var EventListings =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(EventListings, _React$Component);
+
+  function EventListings(props) {
+    var _this;
+
+    _classCallCheck(this, EventListings);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EventListings).call(this, props));
+    _this.state = {
+      events: [{
+        id: 1,
+        date: "2019-01-01",
+        eventName: "New Year's Party at App Academy",
+        startTime: "13:00",
+        endTime: "19:00",
+        address: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "12345",
+        numTicketsAvailable: 100,
+        description: "Join us at App Academy to celebrate the New Year!",
+        imageUrl: "http://test.com/image.png",
+        privateEventYN: true,
+        categories: ["Concert", "Free"]
+      }, {
+        id: 2,
+        date: "2019-01-02",
+        eventName: "Next Event",
+        startTime: "13:00",
+        endTime: "19:00",
+        address: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "12345",
+        numTicketsAvailable: 100,
+        description: "Join us at App Academy to celebrate the New Year!",
+        imageUrl: "http://test.com/image.png",
+        privateEventYN: true,
+        categories: ["Concert", "Free"]
+      }, {
+        id: 3,
+        date: "2019-01-02",
+        eventName: "Event 3",
+        startTime: "13:00",
+        endTime: "19:00",
+        address: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "12345",
+        numTicketsAvailable: 100,
+        description: "Join us at App Academy to celebrate the New Year!",
+        imageUrl: "http://test.com/image.png",
+        privateEventYN: true,
+        categories: ["Concert", "Free"]
+      }, {
+        id: 4,
+        date: "2019-01-02",
+        eventName: "Event 4 Super Long Name Legitimatewordthatisextremelylong",
+        startTime: "13:00",
+        endTime: "19:00",
+        address: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "12345",
+        numTicketsAvailable: 100,
+        description: "Join us at App Academy to celebrate the New Year!",
+        imageUrl: "http://test.com/image.png",
+        privateEventYN: true,
+        categories: ["Concert", "Free"]
+      }, {
+        id: 5,
+        date: "2019-01-02",
+        eventName: "Weird characters(*&(*&(*()*&(!*@$)*&)))",
+        startTime: "13:00",
+        endTime: "19:00",
+        address: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "12345",
+        numTicketsAvailable: 100,
+        description: "Join us at App Academy to celebrate the New Year!",
+        imageUrl: "http://test.com/image.png",
+        privateEventYN: true,
+        categories: ["Concert", "Free"]
+      }, {
+        id: 6,
+        date: "2019-01-02",
+        eventName: "Short Name",
+        startTime: "13:00",
+        endTime: "19:00",
+        address: "123 Main Street",
+        city: "San Francisco",
+        state: "CA",
+        zip: "12345",
+        numTicketsAvailable: 100,
+        description: "Join us at App Academy to celebrate the New Year!",
+        imageUrl: "http://test.com/image.png",
+        privateEventYN: true,
+        categories: ["Concert", "Free"]
+      }]
+    };
+    return _this;
+  }
+
+  _createClass(EventListings, [{
+    key: "render",
+    value: function render() {
+      var events = this.state.events.map(function (event) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_listing__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: event.id,
+          name: event.eventName,
+          image: window.sliderImage1,
+          date: event.date
+        });
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventGridContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.text), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "eventGrid"
+      }, events));
+    }
+  }]);
+
+  return EventListings;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EventListings);
 
 /***/ }),
 
