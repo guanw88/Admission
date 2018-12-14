@@ -5,8 +5,8 @@ import Root from './components/root';
 import configureStore from './store/store';
 
 import { signup, login, logout } from "./util/session_api_util";
-import { fetchEvents } from "./util/event_api_util";
-import { requestEvents } from './actions/event_actions';
+import { fetchEvents, fetchEvent } from "./util/event_api_util";
+import { requestEvents, requestEvent } from './actions/event_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -40,8 +40,10 @@ const testApiUtil = () => {
 
 const testEventUtil = () => {
   window.fetchEvents = fetchEvents;
+  window.fetchEvent = fetchEvent;
 }
 
 const testEventActions = () => {
   window.requestEvents = requestEvents;
+  window.requestEvent = requestEvent;
 }

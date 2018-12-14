@@ -90,21 +90,31 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/event_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_EVENTS, receiveEvents, requestEvents */
+/*! exports provided: RECEIVE_EVENTS, RECEIVE_EVENT, receiveEvents, receiveEvent, requestEvents, requestEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENTS", function() { return RECEIVE_EVENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENT", function() { return RECEIVE_EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvents", function() { return receiveEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvent", function() { return receiveEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvents", function() { return requestEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvent", function() { return requestEvent; });
 /* harmony import */ var _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/event_api_util */ "./frontend/util/event_api_util.js");
 
 var RECEIVE_EVENTS = "RECEIVE_EVENTS";
+var RECEIVE_EVENT = "RECEIVE_EVENT";
 var receiveEvents = function receiveEvents(events) {
   return {
     type: RECEIVE_EVENTS,
     events: events
+  };
+};
+var receiveEvent = function receiveEvent(event) {
+  return {
+    type: RECEIVE_EVENT,
+    event: event
   };
 };
 
@@ -116,6 +126,15 @@ var requestEvents = function requestEvents() {
   return function (dispatch) {
     return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchEvents"]().then(function (events) {
       return dispatch(receiveEvents(events));
+    }, function (xhr) {
+      return dispatchErrors(dispatch, xhr);
+    });
+  };
+};
+var requestEvent = function requestEvent(id) {
+  return function (dispatch) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchEvent"](id).then(function (event) {
+      return dispatch(receiveEvent(event));
     }, function (xhr) {
       return dispatchErrors(dispatch, xhr);
     });
@@ -224,6 +243,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session/signup_form_container */ "./frontend/components/session/signup_form_container.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.js");
 /* harmony import */ var _homepage_home_page_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./homepage/home_page_container */ "./frontend/components/homepage/home_page_container.js");
+/* harmony import */ var _events_event_detail_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./events/event_detail_container */ "./frontend/components/events/event_detail_container.js");
+
 
 
 
@@ -249,6 +270,9 @@ var App = function App() {
     exact: true,
     path: "/",
     component: _homepage_home_page_container__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    path: "/event/:id",
+    component: _events_event_detail_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     path: "/login",
     component: _session_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -262,6 +286,94 @@ var App = function App() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./frontend/components/events/event_detail.js":
+/*!****************************************************!*\
+  !*** ./frontend/components/events/event_detail.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var EventDetail =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(EventDetail, _React$Component);
+
+  function EventDetail(props) {
+    _classCallCheck(this, EventDetail);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EventDetail).call(this, props));
+  }
+
+  _createClass(EventDetail, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Event Detail Page");
+    }
+  }]);
+
+  return EventDetail;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EventDetail);
+
+/***/ }),
+
+/***/ "./frontend/components/events/event_detail_container.js":
+/*!**************************************************************!*\
+  !*** ./frontend/components/events/event_detail_container.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_detail__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event_detail */ "./frontend/components/events/event_detail.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_event_detail__WEBPACK_IMPORTED_MODULE_0__["default"]));
 
 /***/ }),
 
@@ -624,6 +736,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_display__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event_display */ "./frontend/components/homepage/event_display.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_event_actions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/event_actions.js */ "./frontend/actions/event_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+
 
 
 
@@ -631,7 +745,8 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users[state.session.id],
-    events: state.entities.events
+    events: state.entities.events,
+    publicEvents: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["restrictToPublicEvents"])(state.entities.events)
   };
 };
 
@@ -834,6 +949,7 @@ function (_React$Component) {
       var ampm = hours > 0 && hours < 12 ? "am" : "pm";
       return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " + this.extractStartDay(datetime) + ", " + dateObject.getHours() + ":" + dateObject.getMinutes() + ampm;
     } // question for Liz: should I add price to my events table or get the data from the tickets table later
+    // Need to pull from database later
 
   }, {
     key: "formatPrice",
@@ -846,6 +962,8 @@ function (_React$Component) {
       var event = this.props.event;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "eventListingContainer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/event/" + event.id
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "eventListingImage",
         src: event.image_url
@@ -863,7 +981,7 @@ function (_React$Component) {
         className: "eventListingName"
       }, event.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingInfo"
-      }, this.formatStartDatetime(event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), event.address + ", " + event.city + ", " + event.state, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatPrice(3.00)))));
+      }, this.formatStartDatetime(event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), event.address + ", " + event.city + ", " + event.state, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatPrice(3.00))))));
     }
   }]);
 
@@ -917,106 +1035,7 @@ function (_React$Component) {
   function EventListings(props) {
     _classCallCheck(this, EventListings);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(EventListings).call(this, props)); // this.state = {
-    //   events: [
-    //     {
-    //       id: 1,
-    //       date: "2019-01-01",
-    //       eventName: "New Year's Party at App Academy",
-    //       startTime: "13:00",
-    //       endTime: "19:00",
-    //       address: "123 Main Street",
-    //       city: "San Francisco",
-    //       state: "CA",
-    //       zip: "12345",
-    //       numTicketsAvailable: 100,
-    //       description: "Join us at App Academy to celebrate the New Year!",
-    //       imageUrl: "http://test.com/image.png",
-    //       privateEventYN: true,
-    //       categories: ["Concert", "Free"]
-    //     },
-    //     {
-    //       id: 2,
-    //       date: "2019-01-02",
-    //       eventName: "Next Event",
-    //       startTime: "13:00",
-    //       endTime: "19:00",
-    //       address: "123 Main Street",
-    //       city: "San Francisco",
-    //       state: "CA",
-    //       zip: "12345",
-    //       numTicketsAvailable: 100,
-    //       description: "Join us at App Academy to celebrate the New Year!",
-    //       imageUrl: "http://test.com/image.png",
-    //       privateEventYN: true,
-    //       categories: ["Concert", "Free"]
-    //     },
-    //     {
-    //       id: 3,
-    //       date: "2019-01-02",
-    //       eventName: "Event 3",
-    //       startTime: "13:00",
-    //       endTime: "19:00",
-    //       address: "123 Main Street",
-    //       city: "San Francisco",
-    //       state: "CA",
-    //       zip: "12345",
-    //       numTicketsAvailable: 100,
-    //       description: "Join us at App Academy to celebrate the New Year!",
-    //       imageUrl: "http://test.com/image.png",
-    //       privateEventYN: true,
-    //       categories: ["Concert", "Free"]
-    //     },
-    //     {
-    //       id: 4,
-    //       date: "2019-01-02",
-    //       eventName: "Event 4 Super Long Name Legitimatewordthatisextremelylong",
-    //       startTime: "13:00",
-    //       endTime: "19:00",
-    //       address: "123 Main Street",
-    //       city: "San Francisco",
-    //       state: "CA",
-    //       zip: "12345",
-    //       numTicketsAvailable: 100,
-    //       description: "Join us at App Academy to celebrate the New Year!",
-    //       imageUrl: "http://test.com/image.png",
-    //       privateEventYN: true,
-    //       categories: ["Concert", "Free"]
-    //     },
-    //     {
-    //       id: 5,
-    //       date: "2019-01-02",
-    //       eventName: "Weird characters(*&(*&(*()*&(!*@$)*&)))",
-    //       startTime: "13:00",
-    //       endTime: "19:00",
-    //       address: "123 Main Street",
-    //       city: "San Francisco",
-    //       state: "CA",
-    //       zip: "12345",
-    //       numTicketsAvailable: 100,
-    //       description: "Join us at App Academy to celebrate the New Year!",
-    //       imageUrl: "http://test.com/image.png",
-    //       privateEventYN: true,
-    //       categories: ["Concert", "Free"]
-    //     },
-    //     {
-    //       id: 6,
-    //       date: "2019-01-02",
-    //       eventName: "Short Name",
-    //       startTime: "13:00",
-    //       endTime: "19:00",
-    //       address: "123 Main Street",
-    //       city: "San Francisco",
-    //       state: "CA",
-    //       zip: "12345",
-    //       numTicketsAvailable: 100,
-    //       description: "Join us at App Academy to celebrate the New Year!",
-    //       imageUrl: "http://test.com/image.png",
-    //       privateEventYN: true,
-    //       categories: ["Concert", "Free"]
-    //     }
-    //   ]
-    // };
+    return _possibleConstructorReturn(this, _getPrototypeOf(EventListings).call(this, props));
   }
 
   _createClass(EventListings, [{
@@ -1847,10 +1866,12 @@ var testApiUtil = function testApiUtil() {
 
 var testEventUtil = function testEventUtil() {
   window.fetchEvents = _util_event_api_util__WEBPACK_IMPORTED_MODULE_5__["fetchEvents"];
+  window.fetchEvent = _util_event_api_util__WEBPACK_IMPORTED_MODULE_5__["fetchEvent"];
 };
 
 var testEventActions = function testEventActions() {
   window.requestEvents = _actions_event_actions__WEBPACK_IMPORTED_MODULE_6__["requestEvents"];
+  window.requestEvent = _actions_event_actions__WEBPACK_IMPORTED_MODULE_6__["requestEvent"];
 };
 
 /***/ }),
@@ -1910,6 +1931,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/event_actions */ "./frontend/actions/event_actions.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -1921,6 +1944,9 @@ var eventsReducer = function eventsReducer() {
   switch (action.type) {
     case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_EVENTS"]:
       return action.events;
+
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_EVENT"]:
+      return Object.assign({}, state, _defineProperty({}, action.event.id, action.event));
 
     default:
       return state;
@@ -1954,6 +1980,24 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/selectors.js":
+/*!****************************************!*\
+  !*** ./frontend/reducers/selectors.js ***!
+  \****************************************/
+/*! exports provided: restrictToPublicEvents */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "restrictToPublicEvents", function() { return restrictToPublicEvents; });
+var restrictToPublicEvents = function restrictToPublicEvents(events) {
+  return Object.values(events).filter(function (event) {
+    return event.private_event_yn === false;
+  });
+};
 
 /***/ }),
 
@@ -2097,16 +2141,23 @@ var configureStore = function configureStore() {
 /*!*****************************************!*\
   !*** ./frontend/util/event_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchEvents */
+/*! exports provided: fetchEvents, fetchEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvents", function() { return fetchEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvent", function() { return fetchEvent; });
 var fetchEvents = function fetchEvents() {
   return $.ajax({
     type: "GET",
     url: "/api/events"
+  });
+};
+var fetchEvent = function fetchEvent(id) {
+  return $.ajax({
+    type: "GET",
+    url: "/api/events/".concat(id)
   });
 };
 

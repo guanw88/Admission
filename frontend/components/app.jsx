@@ -5,7 +5,7 @@ import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import { AuthRoute } from '../util/route_util';
 import HomePageContainer from "./homepage/home_page_container";
-
+import EventDetailContainer from "./events/event_detail_container";
 
 const App = () => {
   const NoMatch = () => {
@@ -20,6 +20,7 @@ const App = () => {
     </header>
     <Switch>
       <Route exact path="/" component={HomePageContainer} />
+      <Route path="/event/:id" component={EventDetailContainer} />
       <AuthRoute path="/login" component={LoginFormContainer} />
       <AuthRoute path="/signup" component={SignupFormContainer} />
       <Route path="*" component={NoMatch} />

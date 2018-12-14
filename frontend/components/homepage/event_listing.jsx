@@ -27,6 +27,7 @@ class EventListing extends React.Component {
   }
 
   // question for Liz: should I add price to my events table or get the data from the tickets table later
+  // Need to pull from database later
   formatPrice(price) {
     return price = 0 ? "Free" : "Starts at $" + price.toFixed(2);
   }
@@ -35,21 +36,25 @@ class EventListing extends React.Component {
     const event = this.props.event;
     return (
       <li className="eventListingContainer">
-        <img className="eventListingImage" src={event.image_url} />
-        <div className="eventListingDetails">
-          <div className="eventListingDateContainer">
-            <div className="eventListingMonth">{this.extractStartMon(event.start_datetime)}</div>
-            <div className="eventListingDay">{this.extractStartDay(event.start_datetime)}</div>
-        </div>
-        <div className="eventListingDescriptionContainer">
-          <div className="eventListingName">{event.name}</div>
-          <div className="eventListingInfo">
-              {this.formatStartDatetime(event.start_datetime)}<br/>
-              {event.address + ", " + event.city + ", " + event.state}<br/>
-              {this.formatPrice(3.00)}
+        <Link to={"/event/" + event.id}>
+          <img className="eventListingImage" src={event.image_url} />
+          <div className="eventListingDetails">
+            <div className="eventListingDateContainer">
+              <div className="eventListingMonth">{this.extractStartMon(event.start_datetime)}</div>
+              <div className="eventListingDay">{this.extractStartDay(event.start_datetime)}</div>
+            </div>
+            <div className="eventListingDescriptionContainer">
+              <div className="eventListingName">{event.name}</div>
+              <div className="eventListingInfo">
+                {this.formatStartDatetime(event.start_datetime)}
+                <br/>
+                {event.address + ", " + event.city + ", " + event.state}
+                <br/>
+                {this.formatPrice(3.00)}
+              </div>
+            </div>
           </div>
-        </div>
-        </div>
+        </Link>
       </li>
     );
   }

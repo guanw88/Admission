@@ -33,6 +33,7 @@ class Event < ApplicationRecord
 # validate that state and zip are of valid length
 # validate that num_tickets_available is positive
 
+  # does jbuilder see methods that are listed here?
   def substr1(str)
     str[0]
   end
