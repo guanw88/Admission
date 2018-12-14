@@ -9,7 +9,7 @@ class EventDetail extends React.Component {
 
   render() {
     return (
-      <p>Event Detail Page</p>
+      <p>Event Detail Page for Event #{this.props.match.params.id}</p>
     )
 
   }
