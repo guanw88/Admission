@@ -2,6 +2,7 @@ import * as EventApiUtil from "../util/event_api_util";
 
 export const RECEIVE_EVENTS = "RECEIVE_EVENTS";
 export const RECEIVE_EVENT = "RECEIVE_EVENT";
+export const REMOVE_EVENT = "REMOVE_EVENT";
 
 export const receiveEvents = (events) => {
   return {
@@ -16,6 +17,14 @@ export const receiveEvent = (event) => {
     event
   };
 };
+
+export const removeEvent = (eventId) => {
+  return {
+    type: REMOVE_EVENT,
+    eventId: eventId
+
+  }
+}
 
 const dispatchErrors = (dispatch, xhr) => {
   dispatch (receiveErrors(xhr.responseJSON));
@@ -35,4 +44,19 @@ export const requestEvent = (id) => dispatch => {
       event => dispatch( receiveEvent(event) ),
       xhr => dispatchErrors(dispatch, xhr)
     )
+};
+
+export const createEvent = (event) => dispatch => {
+  return EventApiUtil.createEvent(event)
+    .then( event => dispatch( receiveEvent(event) ) )
+};
+
+export const updateEvent = (event) => dispatch => {
+  return EventApiUtil.updateEvent(event)
+    .then( event => dispatch( receiveEvent(event) ) )
+};
+
+export const deleteEvent = (id) => dispatch => {
+  return EventApiUtil.deleteEvent(id)
+    .then( (id) => dispatch( removeEvent(id) ) )
 };

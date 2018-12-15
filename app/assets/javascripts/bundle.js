@@ -90,21 +90,27 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/event_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_EVENTS, RECEIVE_EVENT, receiveEvents, receiveEvent, requestEvents, requestEvent */
+/*! exports provided: RECEIVE_EVENTS, RECEIVE_EVENT, REMOVE_EVENT, receiveEvents, receiveEvent, removeEvent, requestEvents, requestEvent, createEvent, updateEvent, deleteEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENTS", function() { return RECEIVE_EVENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENT", function() { return RECEIVE_EVENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_EVENT", function() { return REMOVE_EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvents", function() { return receiveEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvent", function() { return receiveEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEvent", function() { return removeEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvents", function() { return requestEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvent", function() { return requestEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEvent", function() { return createEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateEvent", function() { return updateEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteEvent", function() { return deleteEvent; });
 /* harmony import */ var _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/event_api_util */ "./frontend/util/event_api_util.js");
 
 var RECEIVE_EVENTS = "RECEIVE_EVENTS";
 var RECEIVE_EVENT = "RECEIVE_EVENT";
+var REMOVE_EVENT = "REMOVE_EVENT";
 var receiveEvents = function receiveEvents(events) {
   return {
     type: RECEIVE_EVENTS,
@@ -115,6 +121,12 @@ var receiveEvent = function receiveEvent(event) {
   return {
     type: RECEIVE_EVENT,
     event: event
+  };
+};
+var removeEvent = function removeEvent(eventId) {
+  return {
+    type: REMOVE_EVENT,
+    eventId: eventId
   };
 };
 
@@ -137,6 +149,27 @@ var requestEvent = function requestEvent(id) {
       return dispatch(receiveEvent(event));
     }, function (xhr) {
       return dispatchErrors(dispatch, xhr);
+    });
+  };
+};
+var createEvent = function createEvent(event) {
+  return function (dispatch) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["createEvent"](event).then(function (event) {
+      return dispatch(receiveEvent(event));
+    });
+  };
+};
+var updateEvent = function updateEvent(event) {
+  return function (dispatch) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["updateEvent"](event).then(function (event) {
+      return dispatch(receiveEvent(event));
+    });
+  };
+};
+var deleteEvent = function deleteEvent(id) {
+  return function (dispatch) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteEvent"](id).then(function (id) {
+      return dispatch(removeEvent(id));
     });
   };
 };
@@ -313,7 +346,7 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _event_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event_form */ "./frontend/components/events/event_form.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/event_actions */ "./frontend/actions/event_actions.js");
 
 
 
@@ -321,12 +354,34 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUser: state.entities.users[state.session.id],
+    event: {
+      "event_date": "2018-12-13",
+      "event_name": "Pre-populated Event",
+      "num_tickets_available": null,
+      "start_datetime": "",
+      "start_date": "2018-12-13",
+      "start_time": "12:00",
+      "end_datetime": "",
+      "end_date": "2018-12-14",
+      "end_time": "12:00",
+      "address": "825 Battery St.",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "91234",
+      "description": "Description goes here.",
+      "image_url": "",
+      "private_event_yn": "false"
+    },
     formType: "Create"
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    action: function action(event) {
+      return dispatch(Object(_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__["createEvent"])(event));
+    }
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_event_form__WEBPACK_IMPORTED_MODULE_0__["default"]));
@@ -466,6 +521,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -474,13 +531,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -491,16 +548,130 @@ function (_React$Component) {
   _inherits(EventForm, _React$Component);
 
   function EventForm(props) {
+    var _this;
+
     _classCallCheck(this, EventForm);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(EventForm).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EventForm).call(this, props));
+    _this.state = _this.props.event;
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
   }
 
   _createClass(EventForm, [{
+    key: "update",
+    value: function update(field) {
+      var _this2 = this;
+
+      console.log(this.state);
+      return function (e) {
+        e.preventDefault();
+
+        _this2.setState(_defineProperty({}, field, e.target.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      this.setState({
+        num_tickets_available: 5,
+        start_datetime: this.state.event_date + " " + this.state.start_time,
+        end_datetime: this.state.end_date + " " + this.state.end_time
+      }, function () {
+        console.log(_this3.state);
+
+        _this3.props.action(_this3.state);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var headerText = this.props.formType === "Create" ? "Create An Event" : "Event Update Page";
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, headerText);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, headerText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Preview"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Publish")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "Design")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "section1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "section1header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Event Details")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Title", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Give it a short distinct name",
+        value: this.state.event_name,
+        onChange: this.update('event_name')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Address", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "Address",
+        value: this.state.address,
+        onChange: this.update('address')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "City", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "City",
+        value: this.state.city,
+        onChange: this.update('city')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "State", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "State",
+        value: this.state.state,
+        onChange: this.update('state')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "ZIP", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        placeholder: "ZIP",
+        value: this.state.zip,
+        onChange: this.update('zip')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Starts", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
+        value: this.state.event_date,
+        onChange: this.update('event_date')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "time",
+        value: this.state.start_time,
+        onChange: this.update('start_time')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ends", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "date",
+        value: this.state.end_date,
+        onChange: this.update('end_date')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "time",
+        value: this.state.end_time,
+        onChange: this.update('end_time')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Image", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        value: this.state.description,
+        onChange: this.update('description')
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Add FAQs")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Organizer Name", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Add This Organizer"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "section2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "section2header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Create Tickets")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Coming Soon")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "section3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "section3header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "3"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Additional Settings")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Listing Privacy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        onChange: this.update('private_event_yn'),
+        value: "false"
+      }), " Public", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        onChange: this.update('private_event_yn'),
+        value: "true"
+      }), " Private"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Type", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "class"
+      }, "Class"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "conference"
+      }, "Conference"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Topic", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "music"
+      }, "Music"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "school-activities"
+      }, "School Activities"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Remaining Tickets", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Show the number of remaining tickets on your event listing"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Nice job! You're almost done."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "Make Your Event Live"
+      }))));
     }
   }]);
 
@@ -2082,6 +2253,11 @@ var eventsReducer = function eventsReducer() {
     case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_EVENT"]:
       return Object.assign({}, state, _defineProperty({}, action.event.id, action.event));
 
+    case _actions_event_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_EVENT"]:
+      var newState = Object.assign({}, state);
+      delete newState[action.eventId];
+      return newState;
+
     default:
       return state;
   }
@@ -2275,13 +2451,16 @@ var configureStore = function configureStore() {
 /*!*****************************************!*\
   !*** ./frontend/util/event_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchEvents, fetchEvent */
+/*! exports provided: fetchEvents, fetchEvent, createEvent, updateEvent, deleteEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvents", function() { return fetchEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchEvent", function() { return fetchEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEvent", function() { return createEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateEvent", function() { return updateEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteEvent", function() { return deleteEvent; });
 var fetchEvents = function fetchEvents() {
   return $.ajax({
     type: "GET",
@@ -2292,6 +2471,30 @@ var fetchEvent = function fetchEvent(id) {
   return $.ajax({
     type: "GET",
     url: "/api/events/".concat(id)
+  });
+};
+var createEvent = function createEvent(event) {
+  return $.ajax({
+    method: "POST",
+    url: "api/events",
+    data: {
+      "event": event
+    }
+  });
+};
+var updateEvent = function updateEvent(event) {
+  return $.ajax({
+    method: "PATCH",
+    url: "api/events/".concat(event.id),
+    data: {
+      "event": event
+    }
+  });
+};
+var deleteEvent = function deleteEvent(id) {
+  return $.ajax({
+    method: "DELETE",
+    url: "api/events/".concat(id)
   });
 };
 
