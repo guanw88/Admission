@@ -41,20 +41,20 @@ class Api::EventsController < ApplicationController
     end
   end
 
-  # def edit
-  #   @event = Event.find(params[:id])
-  #   render :show
-  # end
-  #
-  # def update
-  #   @event = Event.find(params[:id])
-  #
-  #   if @event.update(event_params)
-  #     redirect_to event_url(@event)
-  #   else
-  #     render json: { errors: @event.errors.full_messages }, status: 422
-  #   end
-  # end
+  def edit
+    @event = Event.find(params[:id])
+    render :show
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      render :show
+    else
+      render json: { errors: @event.errors.full_messages }, status: 422
+    end
+  end
   #
   # def destroy
   #   @event = Event.find(params[:id])

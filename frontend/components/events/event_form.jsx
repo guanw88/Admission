@@ -30,25 +30,30 @@ class EventForm extends React.Component {
 
   render() {
     const headerText = (this.props.formType === "Create") ? "Create An Event" : "Event Update Page";
+    const headerEventStatus = (this.props.formType === "Create") ? "Draft" : "Live";
     return (
       <div>
-        <div>
-          <p>{headerText}</p>
-          <button>Preview</button>
-          <button>Publish</button>
+        <div className="event-header">
+          <div>
+            <p className="event-header-status">{headerEventStatus}</p>
+            <p className="event-header-text">{headerText}</p>
+          </div>
+          <div>
+            <button className="event-header-submit-button" onClick={this.handleSubmit}>Save</button>
+          </div>
         </div>
-        <div>
-          <button>Edit</button>
-          <button>Design</button>
+        <div className="event-option-bar">
+          <button className="event-option-text">Edit</button>
+          <button className="event-option-text">Manage</button>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="section1">
-            <div className="section1header">
-              <div>1</div>
-              <div>Event Details</div>
+        <form className="event-form" onSubmit={this.handleSubmit}>
+          <div className="event-form-section">
+            <div className="event-form-section-header">
+              <div className="event-form-section-numeral">1</div>
+              <div className="event-form-section-title">Event Details</div>
             </div>
             <label>
-              Event Title
+              Event Title <span className="required">*</span>
               <input
                 type="text"
                 placeholder="Give it a short distinct name"
@@ -119,29 +124,28 @@ class EventForm extends React.Component {
               <textarea
                 value={this.state.description}
                 onChange={this.update('description')} />
-              <div>Add FAQs</div>
-            </label>
-            <label>
-              Organizer Name
-              <div>Add This Organizer</div>
             </label>
           </div>
-          <div className="section2">
-            <div className="section2header">
-              <div>2</div>
-              <div>Create Tickets</div>
+          <div className="event-form-section">
+            <div className="event-form-section-header">
+              <div className="event-form-section-numeral">2</div>
+              <div className="event-form-section-title">Create Tickets</div>
             </div>
             <div>Coming Soon</div>
           </div>
-          <div className="section3">
-            <div className="section3header">
-              <div>3</div>
-              <div>Additional Settings</div>
+          <div className="event-form-section">
+            <div className="event-form-section-header">
+              <div className="event-form-section-numeral">3</div>
+              <div className="event-form-section-title">Additional Settings</div>
             </div>
             <label>
-              Listing Privacy
-              <input type="radio" onChange={this.update('private_event_yn')} value="false" /> Public
-              <input type="radio" onChange={this.update('private_event_yn')} value="true" /> Private
+              Listing Privacy<br/>
+              <input type="radio" onChange={this.update('private_event_yn')} value="false" />
+                Public page: Discoverable by anyone on Eventbrite, our distribution partners, and search engines.
+                <br/>
+              <input type="radio" onChange={this.update('private_event_yn')} value="true" />
+                Private page: Accessible only by you.
+                <br/>
             </label>
             <label>
               Event Type
