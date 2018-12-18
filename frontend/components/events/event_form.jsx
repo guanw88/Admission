@@ -243,7 +243,11 @@ class EventForm extends React.Component {
           </div>
           <div className="event-form-footer-submit">
             <div className="event-form-footer-submit-text">Nice job! You're almost done.</div>
-            <button className="event-form-footer-submit-button" type="submit">Make Your Event Live</button>
+            <button
+              onClick={this.handleSubmit}
+              className="event-form-footer-submit-button"
+              type="submit">Make Your Event Live
+            </button>
           </div>
         </form>
 

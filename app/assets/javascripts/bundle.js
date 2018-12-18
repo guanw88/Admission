@@ -1056,6 +1056,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-form-footer-submit-text"
       }, "Nice job! You're almost done."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleSubmit,
         className: "event-form-footer-submit-button",
         type: "submit"
       }, "Make Your Event Live"))));
