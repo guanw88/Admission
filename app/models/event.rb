@@ -24,6 +24,8 @@ class Event < ApplicationRecord
     :address, :city, :state, :zip, :description, presence: true
   validates :private_event_yn, inclusion: { in: [ true, false ] }
 
+  has_one_attached :photo
+
   # belongs_to :organizer,
   #   primary_key: :id,
   #   foreign_key: :organizer_id,

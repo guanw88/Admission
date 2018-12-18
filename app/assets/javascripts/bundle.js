@@ -380,7 +380,7 @@ var mapStateToProps = function mapStateToProps(state) {
       "state": "CA",
       "zip": "91234",
       "description": "Description goes here.",
-      "image_url": "",
+      "image_url": null,
       "private_event_yn": "false"
     },
     formType: "Create"
@@ -779,6 +779,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(EventForm).call(this, props));
     _this.state = _this.props.event;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -804,10 +805,47 @@ function (_React$Component) {
         start_datetime: this.state.event_date + " " + this.state.start_time,
         end_datetime: this.state.end_date + " " + this.state.end_time
       }, function () {
-        _this3.props.action(_this3.state).then(function (res) {
+        var formData = new FormData();
+        formData.append('event[id]', _this3.state.id);
+        formData.append('event[event_name]', _this3.state.event_name);
+        formData.append('event[event_date]', _this3.state.event_date);
+        formData.append('event[num_tickets_available]', _this3.state.num_tickets_available);
+        formData.append('event[start_datetime]', _this3.state.start_datetime);
+        formData.append('event[end_datetime]', _this3.state.end_datetime);
+        formData.append('event[address]', _this3.state.address);
+        formData.append('event[city]', _this3.state.city);
+        formData.append('event[state]', _this3.state.state);
+        formData.append('event[zip]', _this3.state.zip);
+        formData.append('event[description]', _this3.state.description);
+        formData.append('event[private_event_yn]', _this3.state.private_event_yn);
+
+        if (_this3.state.image_file) {
+          formData.append('event[photo]', _this3.state.image_file);
+        }
+
+        _this3.props.action(formData).then(function (res) {
           _this3.props.history.push("/event/".concat(res.event.id, "/"));
         });
       });
+    }
+  }, {
+    key: "handleFile",
+    value: function handleFile(e) {
+      var _this4 = this;
+
+      var reader = new FileReader();
+      var file = e.currentTarget.files[0];
+
+      reader.onloadend = function () {
+        return _this4.setState({
+          image_url: reader.result,
+          image_file: file
+        });
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
   }, {
     key: "render",
@@ -888,7 +926,8 @@ function (_React$Component) {
         value: this.state.end_time,
         onChange: this.update('end_time')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Image", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "file"
+        type: "file",
+        onChange: this.handleFile
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         value: this.state.description,
         onChange: this.update('description')
@@ -908,28 +947,118 @@ function (_React$Component) {
         className: "event-form-section-numeral"
       }, "3"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-form-section-title"
-      }, "Additional Settings")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Listing Privacy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Additional Settings")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-form-radio-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Listing Privacy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         onChange: this.update('private_event_yn'),
         value: "false"
-      }), "Public page: Discoverable by anyone on Eventbrite, our distribution partners, and search engines.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "listing-privacy-radio-button-text"
+      }, "Public page:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "listing-privacy-radio-button-hint-text"
+      }, " Discoverable by anyone on Eventbrite, our distribution partners, and search engines.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "radio",
         onChange: this.update('private_event_yn'),
         value: "true"
-      }), "Private page: Accessible only by you.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Type", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "class"
-      }, "Class"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "conference"
-      }, "Conference"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Topic", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "music"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "listing-privacy-radio-button-text"
+      }, "Private page:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "listing-privacy-radio-button-hint-text"
+      }, " Accessible only by you.")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Type", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        disabled: true
+      }, "Select the type of event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "1"
+      }, "Appearance or Signing"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "2"
+      }, "Attraction"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "3"
+      }, "Camp, Trip, or Retreat"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "4"
+      }, "Class, Training, or Workshop"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "5"
+      }, "Concert or Performance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "6"
+      }, "Conference"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "7"
+      }, "Convention"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "8"
+      }, "Dinner or Gala"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "9"
+      }, "Festival or Fair"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "10"
+      }, "Game or Competition"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "11"
+      }, "Meeting or Networking Event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "100"
+      }, "Other"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "12"
+      }, "Party or Social Gathering"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "13"
+      }, "Race or Endurance Event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "14"
+      }, "Rally"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "15"
+      }, "Screening"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "16"
+      }, "Seminar or Talk"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "17"
+      }, "Tour"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "18"
+      }, "Tournament"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "19"
+      }, "Tradeshow, Consumer Show, or Expo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Topic", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        disabled: true
+      }, "Select a topic"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "101"
+      }, "Auto, Boat & Air"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "102"
+      }, "Business & Professional"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "103"
+      }, "Charity & Causes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "104"
+      }, "Community & Culture"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "105"
+      }, "Family & Education"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "106"
+      }, "Fashion & Beauty"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "107"
+      }, "Film, Media & Entertainment"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "108"
+      }, "Food & Drink"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "109"
+      }, "Government & Politics"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "110"
+      }, "Health & Wellness"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "111"
+      }, "Hobbies & Special Interest"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "112"
+      }, "Home & Lifestyle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "113"
       }, "Music"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: "school-activities"
-      }, "School Activities"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Remaining Tickets", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Show the number of remaining tickets on your event listing"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Nice job! You're almost done."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "submit",
-        value: "Make Your Event Live"
-      }))));
+        value: "100"
+      }, "Other"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "114"
+      }, "Performing & Visual Arts"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "115"
+      }, "Religion & Spirituality"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "116"
+      }, "School Activities"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "117"
+      }, "Science & Technology"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "118"
+      }, "Seasonal & Holiday"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "119"
+      }, "Sports & Fitness"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "120"
+      }, "Travel & Outdoor")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-form-footer-submit"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-form-footer-submit-text"
+      }, "Nice job! You're almost done."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "event-form-footer-submit-button",
+        type: "submit"
+      }, "Make Your Event Live"))));
     }
   }]);
 
@@ -2743,22 +2872,22 @@ var fetchEvent = function fetchEvent(id) {
     url: "/api/events/".concat(id)
   });
 };
-var createEvent = function createEvent(event) {
+var createEvent = function createEvent(formData) {
   return $.ajax({
     method: "POST",
     url: "api/events",
-    data: {
-      "event": event
-    }
+    data: formData,
+    contentType: false,
+    processData: false
   });
 };
-var updateEvent = function updateEvent(event) {
+var updateEvent = function updateEvent(formData) {
   return $.ajax({
     method: "PATCH",
-    url: "api/events/".concat(event.id),
-    data: {
-      "event": event
-    }
+    url: "api/events/".concat(formData.get("event[id]")),
+    data: formData,
+    contentType: false,
+    processData: false
   });
 };
 var deleteEvent = function deleteEvent(id) {

@@ -11,7 +11,7 @@
     json.state event.state
     json.zip event.zip
     json.description event.description
-    json.image_url event.image_url
+    json.image_url url_for(event.photo)
     json.private_event_yn event.private_event_yn
   end
 end

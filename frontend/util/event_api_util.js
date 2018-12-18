@@ -12,19 +12,23 @@ export const fetchEvent = (id) => {
   });
 };
 
-export const createEvent = (event) => {
+export const createEvent = (formData) => {
   return $.ajax({
     method: "POST",
     url: `api/events`,
-    data: {"event": event }
+    data: formData,
+    contentType: false,
+    processData: false
   });
 }
 
-export const updateEvent = (event) => {
+export const updateEvent = (formData) => {
   return $.ajax({
     method: "PATCH",
-    url: `api/events/${event.id}`,
-    data: {"event": event }
+    url: `api/events/${formData.get("event[id]")}`,
+    data: formData,
+    contentType: false,
+    processData: false
   });
 }
 

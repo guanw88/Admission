@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
       "state": "CA",
       "zip": "91234",
       "description": "Description goes here.",
-      "image_url": "",
+      "image_url": null,
       "private_event_yn": "false"
     },
     formType: "Create"

@@ -30,7 +30,10 @@ class Api::EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
-
+    unless @event.photo.attached?
+      file = File.open('app/assets/images/event_placeholder.png')
+      @event.photo.attach(io: file, filename: 'event_placeholder.png')
+    end
     if @event.save
       render "/api/events/show"
     else
@@ -45,7 +48,6 @@ class Api::EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
-
     if @event.update(event_params)
       render :show
     else
@@ -62,6 +64,6 @@ class Api::EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:event_date, :event_name, :num_tickets_available, :start_datetime, :end_datetime,
-      :address, :city, :state, :zip, :description, :image_url, :private_event_yn)
+      :address, :city, :state, :zip, :description, :photo, :private_event_yn)
   end
 end

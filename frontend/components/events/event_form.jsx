@@ -6,6 +6,7 @@ class EventForm extends React.Component {
     super(props);
     this.state = this.props.event;
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFile = this.handleFile.bind(this);
   }
 
   update(field) {
@@ -22,13 +23,44 @@ class EventForm extends React.Component {
       start_datetime: this.state.event_date + " " + this.state.start_time,
       end_datetime: this.state.end_date + " " + this.state.end_time
     }, () => {
-      this.props.action(this.state).then(
+      const formData = new FormData();
+      formData.append('event[id]', this.state.id);
+      formData.append('event[event_name]', this.state.event_name);
+      formData.append('event[event_date]', this.state.event_date);
+      formData.append('event[num_tickets_available]', this.state.num_tickets_available);
+      formData.append('event[start_datetime]', this.state.start_datetime);
+      formData.append('event[end_datetime]', this.state.end_datetime);
+      formData.append('event[address]', this.state.address);
+      formData.append('event[city]', this.state.city);
+      formData.append('event[state]', this.state.state);
+      formData.append('event[zip]', this.state.zip);
+      formData.append('event[description]', this.state.description);
+      formData.append('event[private_event_yn]', this.state.private_event_yn);
+      if (this.state.image_file) {
+        formData.append('event[photo]', this.state.image_file);
+      }
+      this.props.action(formData).then(
         (res) => {
           this.props.history.push(`/event/${res.event.id}/`);
         }
       );
     } );
   }
+
+  handleFile(e) {
+    const reader = new FileReader();
+    const file = e.currentTarget.files[0];
+
+    reader.onloadend = () =>{
+      return this.setState({ image_url: reader.result, image_file: file})
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+
+  }
+
   render() {
     const headerText = (this.props.formType === "Create") ? "Create An Event" : "Event Update Page";
     const headerEventStatus = (this.props.formType === "Create") ? "Draft" : "Live";
@@ -120,7 +152,7 @@ class EventForm extends React.Component {
             </label>
             <label>
               Event Image
-              <input type="file"></input>
+              <input type="file" onChange={this.handleFile} />
               <div>We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.</div>
             </label>
             <label>
@@ -142,38 +174,76 @@ class EventForm extends React.Component {
               <div className="event-form-section-numeral">3</div>
               <div className="event-form-section-title">Additional Settings</div>
             </div>
-            <label>
-              Listing Privacy<br/>
-              <input type="radio" onChange={this.update('private_event_yn')} value="false" />
-                Public page: Discoverable by anyone on Eventbrite, our distribution partners, and search engines.
-                <br/>
-              <input type="radio" onChange={this.update('private_event_yn')} value="true" />
-                Private page: Accessible only by you.
-                <br/>
-            </label>
+            <div className="event-form-radio-buttons">
+              <label >
+                Listing Privacy<br/>
+                <input type="radio" onChange={this.update('private_event_yn')} value="false" />
+                <div className="listing-privacy-radio-button-text">Public page:
+                  <span className="listing-privacy-radio-button-hint-text"> Discoverable by anyone on Eventbrite, our distribution partners, and search engines.</span>
+                </div>
+                <input type="radio" onChange={this.update('private_event_yn')} value="true" />
+                <div className="listing-privacy-radio-button-text">Private page:
+                  <span className="listing-privacy-radio-button-hint-text"> Accessible only by you.</span>
+                </div>
+              </label>
+            </div>
             <label>
               Event Type
-              <select>
-                <option value="class">Class</option>
-                <option value="conference">Conference</option>
+              <select >
+                <option disabled>Select the type of event</option>
+                <option value="1">Appearance or Signing</option>
+                <option value="2">Attraction</option>
+                <option value="3">Camp, Trip, or Retreat</option>
+                <option value="4">Class, Training, or Workshop</option>
+                <option value="5">Concert or Performance</option>
+                <option value="6">Conference</option>
+                <option value="7">Convention</option>
+                <option value="8">Dinner or Gala</option>
+                <option value="9">Festival or Fair</option>
+                <option value="10">Game or Competition</option>
+                <option value="11">Meeting or Networking Event</option>
+                <option value="100">Other</option>
+                <option value="12">Party or Social Gathering</option>
+                <option value="13">Race or Endurance Event</option>
+                <option value="14">Rally</option>
+                <option value="15">Screening</option>
+                <option value="16">Seminar or Talk</option>
+                <option value="17">Tour</option>
+                <option value="18">Tournament</option>
+                <option value="19">Tradeshow, Consumer Show, or Expo</option>
               </select>
             </label>
             <label>
               Event Topic
               <select>
-                <option value="music">Music</option>
-                <option value="school-activities">School Activities</option>
+                <option disabled>Select a topic</option>
+                <option value="101">Auto, Boat &amp; Air</option>
+                <option value="102">Business &amp; Professional</option>
+                <option value="103">Charity &amp; Causes</option>
+                <option value="104">Community &amp; Culture</option>
+                <option value="105">Family &amp; Education</option>
+                <option value="106">Fashion &amp; Beauty</option>
+                <option value="107">Film, Media &amp; Entertainment</option>
+                <option value="108">Food &amp; Drink</option>
+                <option value="109">Government &amp; Politics</option>
+                <option value="110">Health &amp; Wellness</option>
+                <option value="111">Hobbies &amp; Special Interest</option>
+                <option value="112">Home &amp; Lifestyle</option>
+                <option value="113">Music</option>
+                <option value="100">Other</option>
+                <option value="114">Performing &amp; Visual Arts</option>
+                <option value="115">Religion &amp; Spirituality</option>
+                <option value="116">School Activities</option>
+                <option value="117">Science &amp; Technology</option>
+                <option value="118">Seasonal &amp; Holiday</option>
+                <option value="119">Sports &amp; Fitness</option>
+                <option value="120">Travel &amp; Outdoor</option>
               </select>
             </label>
-            <label>
-              Remaining Tickets
-              <input type="checkbox"></input>
-              <div>Show the number of remaining tickets on your event listing</div>
-            </label>
           </div>
-          <div>
-            <div>Nice job! You're almost done.</div>
-            <input type="submit" value="Make Your Event Live"></input>
+          <div className="event-form-footer-submit">
+            <div className="event-form-footer-submit-text">Nice job! You're almost done.</div>
+            <button className="event-form-footer-submit-button" type="submit">Make Your Event Live</button>
           </div>
         </form>
 
