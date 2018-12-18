@@ -482,7 +482,6 @@ function (_React$Component) {
   }, {
     key: "handleDelete",
     value: function handleDelete(e) {
-      console.log("Deleting item...", this.props.eventId);
       e.preventDefault();
       this.props.deleteEvent(this.props.eventId);
       this.props.history.push('/');
@@ -779,7 +778,6 @@ function (_React$Component) {
     value: function update(field) {
       var _this2 = this;
 
-      console.log(this.state);
       return function (e) {
         e.preventDefault();
 

@@ -38,7 +38,6 @@ class EditEventForm extends React.Component {
   }
 
   handleDelete(e) {
-    console.log("Deleting item...", this.props.eventId);
     e.preventDefault();
     this.props.deleteEvent(this.props.eventId);
     this.props.history.push('/');

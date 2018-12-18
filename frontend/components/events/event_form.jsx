@@ -9,7 +9,6 @@ class EventForm extends React.Component {
   }
 
   update(field) {
-    console.log(this.state);
     return (e) => {
       e.preventDefault();
       this.setState({[field]: e.target.value});
