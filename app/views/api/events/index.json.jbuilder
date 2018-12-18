@@ -11,7 +11,11 @@
     json.state event.state
     json.zip event.zip
     json.description event.description
-    json.image_url url_for(event.photo)
+    if event.photo.attached?
+      json.image_url url_for(event.photo)
+    else
+      json.image_url event.image_url
+    end
     json.private_event_yn event.private_event_yn
   end
 end
