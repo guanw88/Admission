@@ -90,7 +90,7 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/event_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_EVENTS, RECEIVE_EVENT, REMOVE_EVENT, receiveEvents, receiveEvent, removeEvent, requestEvents, requestEvent, createEvent, updateEvent, deleteEvent */
+/*! exports provided: RECEIVE_EVENTS, RECEIVE_EVENT, REMOVE_EVENT, RECEIVE_EVENT_ERRORS, receiveEvents, receiveEvent, removeEvent, receiveErrors, requestEvents, requestEvent, createEvent, updateEvent, deleteEvent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,9 +98,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENTS", function() { return RECEIVE_EVENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENT", function() { return RECEIVE_EVENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_EVENT", function() { return REMOVE_EVENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_EVENT_ERRORS", function() { return RECEIVE_EVENT_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvents", function() { return receiveEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveEvent", function() { return receiveEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeEvent", function() { return removeEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvents", function() { return requestEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestEvent", function() { return requestEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEvent", function() { return createEvent; });
@@ -111,6 +113,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_EVENTS = "RECEIVE_EVENTS";
 var RECEIVE_EVENT = "RECEIVE_EVENT";
 var REMOVE_EVENT = "REMOVE_EVENT";
+var RECEIVE_EVENT_ERRORS = "RECEIVE_EVENT_ERRORS";
 var receiveEvents = function receiveEvents(events) {
   return {
     type: RECEIVE_EVENTS,
@@ -127,6 +130,12 @@ var removeEvent = function removeEvent(eventId) {
   return {
     type: REMOVE_EVENT,
     eventId: eventId
+  };
+};
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_EVENT_ERRORS,
+    errors: errors
   };
 };
 

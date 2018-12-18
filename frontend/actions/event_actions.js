@@ -3,6 +3,7 @@ import * as EventApiUtil from "../util/event_api_util";
 export const RECEIVE_EVENTS = "RECEIVE_EVENTS";
 export const RECEIVE_EVENT = "RECEIVE_EVENT";
 export const REMOVE_EVENT = "REMOVE_EVENT";
+export const RECEIVE_EVENT_ERRORS = "RECEIVE_EVENT_ERRORS";
 
 export const receiveEvents = (events) => {
   return {
@@ -25,6 +26,13 @@ export const removeEvent = (eventId) => {
 
   }
 }
+
+export const receiveErrors = (errors) => {
+  return {
+    type: RECEIVE_EVENT_ERRORS,
+    errors
+  };
+};
 
 const dispatchErrors = (dispatch, xhr) => {
   dispatch (receiveErrors(xhr.responseJSON));
