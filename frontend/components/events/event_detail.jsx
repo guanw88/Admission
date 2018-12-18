@@ -67,6 +67,10 @@ class EventDetail extends React.Component {
           "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F50140725%2F18096924889%2F1%2Foriginal.jpg?w=800&auto=compress&rect=0%2C0%2C1646%2C823&s=dfdbf8b7aafb928a581debc1a33c2da7";
       }
 
+      // check if current user
+      const editPath = "/event/" + this.props.eventId + "/edit";
+      const editButton = true ?
+        <Link to={editPath}><button className="event-display-edit-button">Edit</button></Link> : null;
       return (
         <div className="event-display-container">
           <div className="event-display-header">
@@ -79,6 +83,7 @@ class EventDetail extends React.Component {
           </div>
           <div className="event-display-buttons">
             <button className="event-display-bookmark-button"></button>
+            {editButton}
             <button className="event-display-register-button">Register</button>
           </div>
           <div className="event-display-body">

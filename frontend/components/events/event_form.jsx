@@ -23,13 +23,11 @@ class EventForm extends React.Component {
       start_datetime: this.state.event_date + " " + this.state.start_time,
       end_datetime: this.state.end_date + " " + this.state.end_time
     }, () => {
-      console.log(this.state);
-      this.props.action(this.state);
-      // what is event_id if createEvent
-      // how to extract event id on edit
-      console.log(`/event/${this.props.event.id}/`);
-      debugger
-      this.props.location.push(`/event/${this.props.event.id}/`);
+      this.props.action(this.state).then(
+        (res) => {
+          this.props.history.push(`/event/${res.event.id}/`);
+        }
+      );
     } );
   }
   render() {

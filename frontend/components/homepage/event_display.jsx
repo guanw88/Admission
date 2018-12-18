@@ -15,7 +15,7 @@ class EventDisplay extends React.Component {
   render() {
     if (this.props.events && Object.keys(this.props.events).length !== 0) {
       return (
-        <div className="eventDisplayContainer">
+        <div id="events" className="eventDisplayContainer">
           <CategoryFilterDisplay text="In the mood for..."/>
           <EventListings events={this.props.events} />
         </div>

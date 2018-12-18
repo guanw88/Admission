@@ -619,8 +619,35 @@
   border-bottom: 1px solid #DBDAE3;
 }
 
+.event-display-buttons a {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+}
+
 .event-display-bookmark-button {
   width: 75%;
+}
+
+.event-display-edit-button {
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #fff;
+  background-color: #16A85A;
+  height: 40px;
+  box-sizing: border-box;
+  text-align: center;
+  border: 2px solid #16A85A;
+  border-radius: 4px;
+  line-height: 22px;
+  font-size: 15px;
+  text-transform: capitalize;
+  transition: all .2s ease-out;
+}
+
+.event-display-edit-button:hover {
+  border: 2px solid #129451;
+  background-color: #129451;
 }
 
 .event-display-register-button {

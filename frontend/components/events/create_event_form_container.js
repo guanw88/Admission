@@ -1,6 +1,7 @@
 import EventForm from './event_form';
 import { connect } from 'react-redux';
 import { createEvent } from '../../actions/event_actions';
+import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
   return {
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(EventForm);
+)(EventForm));

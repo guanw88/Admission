@@ -45,12 +45,13 @@ class EditEventForm extends React.Component {
   }
 
   render() {
-    const { action, formType, event } = this.props;
+    const { action, formType, event, history } = this.props;
     if (this.props.event) {
       this.parseEvent(this.props.event);
       return (
         <EventForm
         action={action}
+        history={history}
         handleDelete={this.handleDelete}
         formType={formType}
         event={event} />

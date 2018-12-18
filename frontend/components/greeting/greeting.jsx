@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 class Greeting extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Greeting extends React.Component {
     if (this.props.currentUser && this.props.currentUser.id) {
       return (
         <ul className="nav">
-          <li><Link to="/">Browse Events</Link></li>
+          <li><HashLink to="/#events">Browse Events</HashLink></li>
           <li><Link to="/event/new">Create Event</Link></li>
           <li>Welcome, {this.props.currentUser.first_name}</li>
           <li onClick={this.props.logout}>Log Out</li>

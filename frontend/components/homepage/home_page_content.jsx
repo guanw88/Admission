@@ -5,6 +5,7 @@ import EventFilterBoxContainer from './event_filter_box_container';
 import FilterIconsContainer from "./filter_icons_container";
 import EventDisplayContainer from "./event_display_container";
 
+
 class HomePageContent extends React.Component {
   constructor(props) {
     super(props);
