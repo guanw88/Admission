@@ -11,8 +11,8 @@ class Greeting extends React.Component {
     if (this.props.currentUser && this.props.currentUser.id) {
       return (
         <ul className="nav">
-          <li><a href="/">Browse Events</a></li>
-          <li><a href="/">Create Event</a></li>
+          <li><Link to="/">Browse Events</Link></li>
+          <li><Link to="/event/new">Create Event</Link></li>
           <li>Welcome, {this.props.currentUser.first_name}</li>
           <li onClick={this.props.logout}>Log Out</li>
         </ul>
@@ -20,8 +20,8 @@ class Greeting extends React.Component {
     } else {
       return (
         <ul className="nav">
-          <li><a href="/">Browse Events</a></li>
-          <li><a href="/">Create Event</a></li>
+          <li><Link to="/login">Browse Events</Link></li>
+          <li><Link to="/login">Create Event</Link></li>
           <li><Link to="/signup">Sign Up</Link></li>
           <li><Link to="/login">Log In</Link></li>
         </ul>

@@ -1,7 +1,8 @@
 import React from 'react';
 import EventForm from './event_form';
 import { connect } from 'react-redux';
-import { requestEvent, updateEvent } from '../../actions/event_actions';
+import { withRouter } from 'react-router-dom';
+import { requestEvent, updateEvent, deleteEvent } from '../../actions/event_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -15,11 +16,17 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     requestEvent: (id) => dispatch(requestEvent(id)),
+    deleteEvent: (id) => dispatch(deleteEvent(id)),
     action: (event) => dispatch(updateEvent(event))
   };
 };
 
 class EditEventForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   componentDidMount() {
     this.props.requestEvent(this.props.eventId);
   }
@@ -30,6 +37,13 @@ class EditEventForm extends React.Component {
     event.end_time = event.end_datetime.slice(11,19);
   }
 
+  handleDelete(e) {
+    console.log("Deleting item...", this.props.eventId);
+    e.preventDefault();
+    this.props.deleteEvent(this.props.eventId);
+    this.props.history.push('/');
+  }
+
   render() {
     const { action, formType, event } = this.props;
     if (this.props.event) {
@@ -37,6 +51,7 @@ class EditEventForm extends React.Component {
       return (
         <EventForm
         action={action}
+        handleDelete={this.handleDelete}
         formType={formType}
         event={event} />
       );
@@ -45,4 +60,4 @@ class EditEventForm extends React.Component {
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(EditEventForm);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EditEventForm));

@@ -29,14 +29,11 @@ class Api::EventsController < ApplicationController
   end
 
   def create
-    # debugger
     @event = Event.new(event_params)
 
     if @event.save
       render "/api/events/show"
-      # redirect_to event_url(@event)
     else
-      debugger
       render json: { errors: @event.errors.full_messages }, status: 422
     end
   end
@@ -55,12 +52,11 @@ class Api::EventsController < ApplicationController
       render json: { errors: @event.errors.full_messages }, status: 422
     end
   end
-  #
-  # def destroy
-  #   @event = Event.find(params[:id])
-  #   @event.destroy
-  #   redirect_to event_url(@event)
-  # end
+
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy
+  end
 
   private
 

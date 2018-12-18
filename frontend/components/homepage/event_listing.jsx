@@ -20,10 +20,16 @@ class EventListing extends React.Component {
   formatStartDatetime(datetime) {
     const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
     const dateObject = new Date(datetime);
-    const hours = dateObject.getHours();
+    const hours = dateObject.getHours()%12 === 0 ? "12" : dateObject.getHours()%12;
+    let minutes;
+    if (dateObject.getMinutes() < 10) {
+      minutes = "0" + dateObject.getMinutes();
+    } else {
+      minutes = dateObject.getMinutes();
+    }
     const ampm = hours > 0 && hours < 12 ? "am" : "pm";
     return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " +
-      this.extractStartDay(datetime) + ", " + dateObject.getHours() + ":" + dateObject.getMinutes() + ampm;
+      this.extractStartDay(datetime) + ", " + hours + ":" + minutes + ampm;
   }
 
   // question for Liz: should I add price to my events table or get the data from the tickets table later

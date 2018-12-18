@@ -25,12 +25,18 @@ class EventForm extends React.Component {
     }, () => {
       console.log(this.state);
       this.props.action(this.state);
+      // what is event_id if createEvent
+      // how to extract event id on edit
+      console.log(`/event/${this.props.event.id}/`);
+      debugger
+      this.props.location.push(`/event/${this.props.event.id}/`);
     } );
   }
-
   render() {
     const headerText = (this.props.formType === "Create") ? "Create An Event" : "Event Update Page";
     const headerEventStatus = (this.props.formType === "Create") ? "Draft" : "Live";
+    const deleteButton = (this.props.formType === "Create") ? null :
+      <button onClick={this.props.handleDelete} className="event-option-text">Delete</button>;
     return (
       <div>
         <div className="event-header">
@@ -45,6 +51,7 @@ class EventForm extends React.Component {
         <div className="event-option-bar">
           <button className="event-option-text">Edit</button>
           <button className="event-option-text">Manage</button>
+          {deleteButton}
         </div>
         <form className="event-form" onSubmit={this.handleSubmit}>
           <div className="event-form-section">

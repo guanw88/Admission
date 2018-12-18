@@ -1,16 +1,18 @@
 import EventDetail from './event_detail';
 import { connect } from 'react-redux';
-import { logout } from '../../actions/session_actions';
+import { requestEvent } from '../../actions/event_actions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    event: state.entities.events[ownProps.match.params.id],
+    eventId: ownProps.match.params.id
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    requestEvent: (id) => dispatch(requestEvent(id))
   };
 };
 
