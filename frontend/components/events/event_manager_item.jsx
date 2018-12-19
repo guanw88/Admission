@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 class EventManagerItem extends React.Component {
   constructor(props) {
     super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.state = {event_id: this.props.event.id};
   }
 
   extractStartMon(datetime) {
@@ -32,24 +34,30 @@ class EventManagerItem extends React.Component {
       this.extractStartDay(datetime) + ", " + hours + ":" + minutes + ampm;
   }
 
+  handleDelete(e) {
+    e.preventDefault();
+    this.props.deleteEvent(e.target.id);
+    this.setState({event_id: null});
+  }
+
   render() {
     const event = this.props.event;
     return (
       <li className="event-manager-item">
         <Link to={"/event/" + event.id}>
-          <div className="event-manager-item-title">{event.name}</div>
+          <div className="event-manager-item-title">{event.event_name}</div>
         </Link>
         <div className="event-manager-item-text">
           {this.formatStartDatetime(event.start_datetime)}
         </div>
         <div className="event-manager-item-buttons">
-          <div className="event-manager-item-button">Manage</div>
           <Link to={"/event/" + event.id + "/edit"}>
             <div className="event-manager-item-button">Edit</div>
           </Link>
           <Link to={"/event/" + event.id}>
             <div className="event-manager-item-button">View</div>
           </Link>
+          <div id={event.id} onClick={this.handleDelete} className="event-manager-item-button">Delete</div>
         </div>
       </li>
     );

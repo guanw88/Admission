@@ -177,7 +177,7 @@ var updateEvent = function updateEvent(event) {
 };
 var deleteEvent = function deleteEvent(id) {
   return function (dispatch) {
-    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteEvent"](id).then(function (id) {
+    return _util_event_api_util__WEBPACK_IMPORTED_MODULE_0__["deleteEvent"](id).then(function () {
       return dispatch(removeEvent(id));
     });
   };
@@ -859,6 +859,7 @@ function (_React$Component) {
     value: function render() {
       var headerText = this.props.formType === "Create" ? "Create An Event" : "Event Update Page";
       var headerEventStatus = this.props.formType === "Create" ? "Draft" : "Live";
+      var optionBarText = this.props.formType === "Create" ? "Create" : "Edit";
       var deleteButton = this.props.formType === "Create" ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.handleDelete,
         className: "event-option-text"
@@ -876,9 +877,11 @@ function (_React$Component) {
         className: "event-option-bar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "event-option-text"
-      }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, optionBarText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/my-events"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "event-option-text"
-      }, "Manage"), deleteButton), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+      }, "Manage")), deleteButton), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "event-form",
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1131,9 +1134,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var currentUserId = this.props.currentUser ? this.props.currentUser.id : null;
       var events = Object.values(this.props.events).map(function (event) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_manager_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          deleteEvent: _this.props.deleteEvent,
           key: event.id,
           event: event
         });
@@ -1184,6 +1190,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     requestEvents: function requestEvents(id) {
       return dispatch(Object(_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__["requestEvents"])());
+    },
+    deleteEvent: function deleteEvent(id) {
+      return dispatch(Object(_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__["deleteEvent"])(id));
     }
   };
 };
@@ -1214,13 +1223,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -1231,9 +1240,16 @@ function (_React$Component) {
   _inherits(EventManagerItem, _React$Component);
 
   function EventManagerItem(props) {
+    var _this;
+
     _classCallCheck(this, EventManagerItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(EventManagerItem).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EventManagerItem).call(this, props));
+    _this.handleDelete = _this.handleDelete.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.state = {
+      event_id: _this.props.event.id
+    };
+    return _this;
   }
 
   _createClass(EventManagerItem, [{
@@ -1267,6 +1283,15 @@ function (_React$Component) {
       return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " + this.extractStartDay(datetime) + ", " + hours + ":" + minutes + ampm;
     }
   }, {
+    key: "handleDelete",
+    value: function handleDelete(e) {
+      e.preventDefault();
+      this.props.deleteEvent(e.target.id);
+      this.setState({
+        event_id: null
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var event = this.props.event;
@@ -1276,13 +1301,11 @@ function (_React$Component) {
         to: "/event/" + event.id
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-manager-item-title"
-      }, event.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, event.event_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-manager-item-text"
       }, this.formatStartDatetime(event.start_datetime)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-manager-item-buttons"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "event-manager-item-button"
-      }, "Manage"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/event/" + event.id + "/edit"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-manager-item-button"
@@ -1290,7 +1313,11 @@ function (_React$Component) {
         to: "/event/" + event.id
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-manager-item-button"
-      }, "View"))));
+      }, "View")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: event.id,
+        onClick: this.handleDelete,
+        className: "event-manager-item-button"
+      }, "Delete")));
     }
   }]);
 

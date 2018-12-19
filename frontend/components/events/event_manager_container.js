@@ -1,6 +1,6 @@
 import EventManager from './event_manager';
 import { connect } from 'react-redux';
-import { requestEvents } from '../../actions/event_actions';
+import { requestEvents, deleteEvent } from '../../actions/event_actions';
 import { restrictToCurrentUser } from '../../reducers/selectors';
 
 const mapStateToProps = (state, ownProps) => {
@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestEvents: (id) => dispatch(requestEvents())
+    requestEvents: (id) => dispatch(requestEvents()),
+    deleteEvent: (id) => dispatch(deleteEvent(id))
   };
 };
 

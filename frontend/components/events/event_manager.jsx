@@ -10,12 +10,12 @@ class EventManager extends React.Component {
   componentDidMount() {
     this.props.requestEvents();
   }
-
+  
   render() {
     const currentUserId = this.props.currentUser ? this.props.currentUser.id : null;
     const events = Object.values(this.props.events).map( event => {
       return (
-        <EventManagerItem key={event.id} event={event} />
+        <EventManagerItem deleteEvent={this.props.deleteEvent} key={event.id} event={event} />
       );
     });
 

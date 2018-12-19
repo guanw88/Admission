@@ -65,6 +65,7 @@ class EventForm extends React.Component {
   render() {
     const headerText = (this.props.formType === "Create") ? "Create An Event" : "Event Update Page";
     const headerEventStatus = (this.props.formType === "Create") ? "Draft" : "Live";
+    const optionBarText = (this.props.formType === "Create") ? "Create" : "Edit";
     const deleteButton = (this.props.formType === "Create") ? null :
       <button onClick={this.props.handleDelete} className="event-option-text">Delete</button>;
     return (
@@ -79,8 +80,10 @@ class EventForm extends React.Component {
           </div>
         </div>
         <div className="event-option-bar">
-          <button className="event-option-text">Edit</button>
-          <button className="event-option-text">Manage</button>
+          <button className="event-option-text">{optionBarText}</button>
+          <Link to="/my-events">
+            <button className="event-option-text">Manage</button>
+          </Link>
           {deleteButton}
         </div>
         <form className="event-form" onSubmit={this.handleSubmit}>
