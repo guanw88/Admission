@@ -36,6 +36,7 @@ class EventForm extends React.Component {
       formData.append('event[zip]', this.state.zip);
       formData.append('event[description]', this.state.description);
       formData.append('event[private_event_yn]', this.state.private_event_yn);
+      formData.append('event[organizer_id]', this.state.organizer_id);
       if (this.state.image_file) {
         formData.append('event[photo]', this.state.image_file);
       }

@@ -22,7 +22,8 @@ const mapStateToProps = (state) => {
       "zip": "91234",
       "description": "Description goes here.",
       "image_url": null,
-      "private_event_yn": "false"
+      "private_event_yn": "false",
+      "organizer_id": state.session.id
     },
     formType: "Create"
   };

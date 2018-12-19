@@ -17,6 +17,7 @@
 #  private_event_yn      :boolean          not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  organizer_id          :integer
 #
 
 require 'test_helper'

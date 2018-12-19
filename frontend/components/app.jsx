@@ -8,7 +8,7 @@ import HomePageContainer from "./homepage/home_page_container";
 import EventDetailContainer from "./events/event_detail_container";
 import CreateEventFormContainer from "./events/create_event_form_container";
 import EditEventFormContainer from "./events/edit_event_form_container";
-
+import EventManagerContainer from "./events/event_manager_container";
 // Need to update routes to protected routes
 
 
@@ -28,6 +28,7 @@ const App = () => {
         <Route exact path="/event/new" component={CreateEventFormContainer} />
         <Route exact path="/event/:id/edit" component={EditEventFormContainer} />
         <Route exact path="/event/:id" component={EventDetailContainer} />
+        <Route exact path="/my-events" component={EventManagerContainer} />
         <AuthRoute path="/login" component={LoginFormContainer} />
         <AuthRoute path="/signup" component={SignupFormContainer} />
         <Route path="*" component={NoMatch} />

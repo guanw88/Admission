@@ -17,6 +17,7 @@
 #  private_event_yn      :boolean          not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  organizer_id          :integer
 #
 
 class Event < ApplicationRecord
@@ -26,10 +27,10 @@ class Event < ApplicationRecord
 
   has_one_attached :photo
 
-  # belongs_to :organizer,
-  #   primary_key: :id,
-  #   foreign_key: :organizer_id,
-  #   className: :User
+  belongs_to :organizer,
+    primary_key: :id,
+    foreign_key: :organizer_id,
+    class_name: :User
 
 # add validation that start time cannot be before end time
 # validate that state and zip are of valid length

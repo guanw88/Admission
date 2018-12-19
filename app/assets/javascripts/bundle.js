@@ -288,6 +288,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events_event_detail_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./events/event_detail_container */ "./frontend/components/events/event_detail_container.js");
 /* harmony import */ var _events_create_event_form_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./events/create_event_form_container */ "./frontend/components/events/create_event_form_container.js");
 /* harmony import */ var _events_edit_event_form_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./events/edit_event_form_container */ "./frontend/components/events/edit_event_form_container.js");
+/* harmony import */ var _events_event_manager_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./events/event_manager_container */ "./frontend/components/events/event_manager_container.js");
+
 
 
 
@@ -328,6 +330,10 @@ var App = function App() {
     exact: true,
     path: "/event/:id",
     component: _events_event_detail_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/my-events",
+    component: _events_event_manager_container__WEBPACK_IMPORTED_MODULE_10__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     path: "/login",
     component: _session_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -381,7 +387,8 @@ var mapStateToProps = function mapStateToProps(state) {
       "zip": "91234",
       "description": "Description goes here.",
       "image_url": null,
-      "private_event_yn": "false"
+      "private_event_yn": "false",
+      "organizer_id": state.session.id
     },
     formType: "Create"
   };
@@ -633,15 +640,14 @@ function (_React$Component) {
       if (this.props.event) {
         if (this.props.event.image_url === "") {
           this.props.event.image_url = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F50140725%2F18096924889%2F1%2Foriginal.jpg?w=800&auto=compress&rect=0%2C0%2C1646%2C823&s=dfdbf8b7aafb928a581debc1a33c2da7";
-        } // check if current user
-
+        }
 
         var editPath = "/event/" + this.props.eventId + "/edit";
-        var editButton = true ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        var editButton = this.props.currentUser && this.props.currentUser.id === this.props.event.organizer_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: editPath
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "event-display-edit-button"
-        }, "Edit")) : undefined;
+        }, "Edit")) : null;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -818,6 +824,7 @@ function (_React$Component) {
         formData.append('event[zip]', _this3.state.zip);
         formData.append('event[description]', _this3.state.description);
         formData.append('event[private_event_yn]', _this3.state.private_event_yn);
+        formData.append('event[organizer_id]', _this3.state.organizer_id);
 
         if (_this3.state.image_file) {
           formData.append('event[photo]', _this3.state.image_file);
@@ -1070,6 +1077,230 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/events/event_manager.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/events/event_manager.jsx ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _event_manager_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./event_manager_item */ "./frontend/components/events/event_manager_item.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var EventManager =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(EventManager, _React$Component);
+
+  function EventManager(props) {
+    _classCallCheck(this, EventManager);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EventManager).call(this, props));
+  }
+
+  _createClass(EventManager, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.requestEvents();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var currentUserId = this.props.currentUser ? this.props.currentUser.id : null;
+      var events = Object.values(this.props.events).map(function (event) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_manager_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: event.id,
+          event: event
+        });
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-title"
+      }, "Manage Events"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Current User ID is: ", currentUserId), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "event-manager-item-container"
+      }, events));
+    }
+  }]);
+
+  return EventManager;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EventManager);
+
+/***/ }),
+
+/***/ "./frontend/components/events/event_manager_container.js":
+/*!***************************************************************!*\
+  !*** ./frontend/components/events/event_manager_container.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _event_manager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./event_manager */ "./frontend/components/events/event_manager.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_event_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/event_actions */ "./frontend/actions/event_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    currentUser: state.entities.users[state.session.id],
+    events: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["restrictToCurrentUser"])(state.entities.events, state.session.id)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    requestEvents: function requestEvents(id) {
+      return dispatch(Object(_actions_event_actions__WEBPACK_IMPORTED_MODULE_2__["requestEvents"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_event_manager__WEBPACK_IMPORTED_MODULE_0__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/events/event_manager_item.jsx":
+/*!***********************************************************!*\
+  !*** ./frontend/components/events/event_manager_item.jsx ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var EventManagerItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(EventManagerItem, _React$Component);
+
+  function EventManagerItem(props) {
+    _classCallCheck(this, EventManagerItem);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EventManagerItem).call(this, props));
+  }
+
+  _createClass(EventManagerItem, [{
+    key: "extractStartMon",
+    value: function extractStartMon(datetime) {
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      var dateObject = new Date(datetime);
+      return months[dateObject.getMonth()];
+    }
+  }, {
+    key: "extractStartDay",
+    value: function extractStartDay(datetime) {
+      var dateObject = new Date(datetime);
+      return dateObject.getDate();
+    }
+  }, {
+    key: "formatStartDatetime",
+    value: function formatStartDatetime(datetime) {
+      var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var dateObject = new Date(datetime);
+      var hours = dateObject.getHours() % 12 === 0 ? "12" : dateObject.getHours() % 12;
+      var minutes;
+
+      if (dateObject.getMinutes() < 10) {
+        minutes = "0" + dateObject.getMinutes();
+      } else {
+        minutes = dateObject.getMinutes();
+      }
+
+      var ampm = hours > 0 && hours < 12 ? "am" : "pm";
+      return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " + this.extractStartDay(datetime) + ", " + hours + ":" + minutes + ampm;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var event = this.props.event;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "event-manager-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/event/" + event.id
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-item-title"
+      }, event.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-item-text"
+      }, this.formatStartDatetime(event.start_datetime)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-item-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-item-button"
+      }, "Manage"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/event/" + event.id + "/edit"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-item-button"
+      }, "Edit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/event/" + event.id
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "event-manager-item-button"
+      }, "View"))));
+    }
+  }]);
+
+  return EventManagerItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EventManagerItem);
+
+/***/ }),
+
 /***/ "./frontend/components/greeting/greeting.jsx":
 /*!***************************************************!*\
   !*** ./frontend/components/greeting/greeting.jsx ***!
@@ -1127,7 +1358,9 @@ function (_React$Component) {
           to: "/#events"
         }, "Browse Events")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/event/new"
-        }, "Create Event")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Welcome, ", this.props.currentUser.first_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        }, "Create Event")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/my-events"
+        }, "Welcome, ", this.props.currentUser.first_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: this.props.logout
         }, "Log Out"));
       } else {
@@ -2697,15 +2930,21 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(
 /*!****************************************!*\
   !*** ./frontend/reducers/selectors.js ***!
   \****************************************/
-/*! exports provided: restrictToPublicEvents */
+/*! exports provided: restrictToPublicEvents, restrictToCurrentUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "restrictToPublicEvents", function() { return restrictToPublicEvents; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "restrictToCurrentUser", function() { return restrictToCurrentUser; });
 var restrictToPublicEvents = function restrictToPublicEvents(events) {
   return Object.values(events).filter(function (event) {
     return event.private_event_yn === false;
+  });
+};
+var restrictToCurrentUser = function restrictToCurrentUser(events, currentUserId) {
+  return Object.values(events).filter(function (event) {
+    return event.organizer_id === currentUserId;
   });
 };
 

@@ -790,3 +790,66 @@
   border: 2px solid #129451;
   background-color: #129451;
 }
+
+/* Event Manager */
+
+.event-manager-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 1080px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Libre Franklin', sans-serif;
+}
+
+.event-manager-title {
+  font-size: 32px;
+  line-height: 43px;
+  font-weight: 600;
+  color: #1E0A3C;
+}
+
+.event-manager-item-container {
+  width: 75%;
+}
+
+.event-manager-item {
+  background-color: white;
+  margin-top: 10px;
+  padding: 10px 15px 10px 15px;
+  box-shadow: 0 1px 0 0 rgba(0,0,0,.1);
+}
+
+.event-manager-item-title {
+  color: rgb(54, 89, 227);
+}
+
+.event-manager-item-title:hover {
+  text-decoration: underline;
+}
+
+.event-manager-item-text {
+  color: #6F7287;
+  font-size: 14px;
+}
+
+.event-manager-item-buttons {
+  padding-top: 10px;
+  color: #6F7287;
+  font-size: 14px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.event-manager-item-button {
+  padding-right: 10px;
+}
+
+.event-manager-item-button:hover {
+  color: rgb(54, 89, 227);
+}
