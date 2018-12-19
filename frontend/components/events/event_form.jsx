@@ -132,30 +132,35 @@ class EventForm extends React.Component {
                 value={this.state.zip}
                 onChange={this.update('zip')} />
             </label>
+            <div className="start-end-time-container">
+              <label>
+                Starts
+                <br/>
+                <input
+                  type="date"
+                  value={this.state.event_date}
+                  onChange={this.update('event_date')} />
+                <input
+                  type="time"
+                  value={this.state.start_time}
+                  onChange={this.update('start_time')} />
+              </label>
+              <label>
+                Ends
+                <br/>
+                <input
+                  type="date"
+                  value={this.state.end_date}
+                  onChange={this.update('end_date')} />
+                <input
+                  type="time"
+                  value={this.state.end_time}
+                  onChange={this.update('end_time')} />
+              </label>
+            </div>
+            <br/>
             <label>
-              Starts
-              <input
-                type="date"
-                value={this.state.event_date}
-                onChange={this.update('event_date')} />
-              <input
-                type="time"
-                value={this.state.start_time}
-                onChange={this.update('start_time')} />
-            </label>
-            <label>
-              Ends
-              <input
-                type="date"
-                value={this.state.end_date}
-                onChange={this.update('end_date')} />
-              <input
-                type="time"
-                value={this.state.end_time}
-                onChange={this.update('end_time')} />
-            </label>
-            <label>
-              Event Image
+              Event Image<br/>
               <input type="file" onChange={this.handleFile} />
               <div>We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.</div>
             </label>

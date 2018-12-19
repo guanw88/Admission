@@ -509,12 +509,18 @@
   border: 1px solid #3D64FF
 }
 
+.start-end-time-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
 .event-form input[type="date"], input[type="time"] {
   box-sizing: border-box;
   border-radius: 3px;
   vertical-align: middle;
-  width: 20%;
+  width: 47%;
   padding: 9px 12px;
+  margin-right: 10px;
   border: 1px #DBDAE3 solid;
   background: #fff;
   color: #4B4D63;

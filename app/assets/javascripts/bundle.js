@@ -919,7 +919,9 @@ function (_React$Component) {
         placeholder: "ZIP",
         value: this.state.zip,
         onChange: this.update('zip')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Starts", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "start-end-time-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Starts", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "date",
         value: this.state.event_date,
         onChange: this.update('event_date')
@@ -927,7 +929,7 @@ function (_React$Component) {
         type: "time",
         value: this.state.start_time,
         onChange: this.update('start_time')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ends", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Ends", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "date",
         value: this.state.end_date,
         onChange: this.update('end_date')
@@ -935,7 +937,7 @@ function (_React$Component) {
         type: "time",
         value: this.state.end_time,
         onChange: this.update('end_time')
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Image", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Image", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "file",
         onChange: this.handleFile
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
