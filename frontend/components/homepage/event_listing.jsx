@@ -43,7 +43,9 @@ class EventListing extends React.Component {
     return (
       <li className="eventListingContainer">
         <Link to={"/event/" + event.id}>
-          <img className="eventListingImage" src={event.image_url} />
+          <div className="eventListingImageContainer">
+            <img className="eventListingImage" src={event.image_url} />
+          </div>
           <div className="eventListingDetails">
             <div className="eventListingDateContainer">
               <div className="eventListingMonth">{this.extractStartMon(event.start_datetime)}</div>

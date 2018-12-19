@@ -1961,10 +1961,12 @@ function (_React$Component) {
         className: "eventListingContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/event/" + event.id
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "eventListingImageContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "eventListingImage",
         src: event.image_url
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingDetails"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingDateContainer"
