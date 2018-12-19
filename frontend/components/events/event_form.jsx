@@ -11,7 +11,6 @@ class EventForm extends React.Component {
 
   update(field) {
     return (e) => {
-      e.preventDefault();
       this.setState({[field]: e.target.value});
     };
   }
@@ -74,6 +73,23 @@ class EventForm extends React.Component {
       <div className="file-selector-text-container">
         <div className="file-selector-title-text">Add Event Image</div>
         <div className="file-selector-descriptor-text">Choose a compelling image that brings your event to life.</div>
+      </div>;
+
+    const eventFormRadioButtons =
+      <div>
+        <input
+          type="radio"
+          onChange={this.update('private_event_yn')}
+          checked={String(this.state.private_event_yn) === "false"}
+          value="false" />
+        <div className="listing-privacy-radio-button-text">Public page:
+          <span className="listing-privacy-radio-button-hint-text"> Discoverable by anyone on Eventful! , our distribution partners, and search engines.</span>
+        </div>
+        <input
+          type="radio"
+          onChange={this.update('private_event_yn')}
+          checked={String(this.state.private_event_yn) === "true"}
+          value="true" />
       </div>;
 
     return (
@@ -175,10 +191,11 @@ class EventForm extends React.Component {
                   {fileUploadContainerContents}
                 </label>
               </div>
-              <div className="">We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.</div>
+              <div className="file-selector-explanation-text">We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.</div>
             </label>
             <label>
               Event Description
+              <br/>
               <textarea
                 value={this.state.description}
                 onChange={this.update('description')} />
@@ -199,11 +216,7 @@ class EventForm extends React.Component {
             <div className="event-form-radio-buttons">
               <label >
                 Listing Privacy<br/>
-                <input type="radio" onChange={this.update('private_event_yn')} value="false" />
-                <div className="listing-privacy-radio-button-text">Public page:
-                  <span className="listing-privacy-radio-button-hint-text"> Discoverable by anyone on Eventbrite, our distribution partners, and search engines.</span>
-                </div>
-                <input type="radio" onChange={this.update('private_event_yn')} value="true" />
+                {eventFormRadioButtons}
                 <div className="listing-privacy-radio-button-text">Private page:
                   <span className="listing-privacy-radio-button-hint-text"> Accessible only by you.</span>
                 </div>
@@ -211,8 +224,8 @@ class EventForm extends React.Component {
             </div>
             <label>
               Event Type
-              <select >
-                <option disabled>Select the type of event</option>
+              <select value={this.state.event_type} onChange={this.update('event_type')}>
+                <option value="initial" disabled>Select the type of event</option>
                 <option value="1">Appearance or Signing</option>
                 <option value="2">Attraction</option>
                 <option value="3">Camp, Trip, or Retreat</option>
@@ -237,8 +250,8 @@ class EventForm extends React.Component {
             </label>
             <label>
               Event Topic
-              <select>
-                <option disabled>Select a topic</option>
+              <select value={this.state.event_topic} onChange={this.update('event_topic')}>
+                <option value="initial" disabled>Select a topic</option>
                 <option value="101">Auto, Boat &amp; Air</option>
                 <option value="102">Business &amp; Professional</option>
                 <option value="103">Charity &amp; Causes</option>

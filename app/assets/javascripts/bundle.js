@@ -388,7 +388,9 @@ var mapStateToProps = function mapStateToProps(state) {
       "description": "Description goes here.",
       "image_url": null,
       "private_event_yn": "false",
-      "organizer_id": state.session.id
+      "organizer_id": state.session.id,
+      "event_type": "initial",
+      "event_topic": "initial"
     },
     formType: "Create"
   };
@@ -494,6 +496,8 @@ function (_React$Component) {
       event.start_time = event.start_datetime.slice(11, 19);
       event.end_date = event.end_datetime.slice(0, 10);
       event.end_time = event.end_datetime.slice(11, 19);
+      event.event_type = "initial";
+      event.event_topic = "initial";
     }
   }, {
     key: "handleDelete",
@@ -795,8 +799,6 @@ function (_React$Component) {
       var _this2 = this;
 
       return function (e) {
-        e.preventDefault();
-
         _this2.setState(_defineProperty({}, field, e.target.value));
       };
     }
@@ -873,6 +875,21 @@ function (_React$Component) {
       }, "Add Event Image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "file-selector-descriptor-text"
       }, "Choose a compelling image that brings your event to life."));
+      var eventFormRadioButtons = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        onChange: this.update('private_event_yn'),
+        checked: String(this.state.private_event_yn) === "false",
+        value: "false"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "listing-privacy-radio-button-text"
+      }, "Public page:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "listing-privacy-radio-button-hint-text"
+      }, " Discoverable by anyone on Eventful! , our distribution partners, and search engines.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "radio",
+        onChange: this.update('private_event_yn'),
+        checked: String(this.state.private_event_yn) === "true",
+        value: "true"
+      }));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -956,8 +973,8 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "event-form-file-selector"
       }, fileUploadContainerContents)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
-      }, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "file-selector-explanation-text"
+      }, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         value: this.state.description,
         onChange: this.update('description')
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -978,23 +995,15 @@ function (_React$Component) {
         className: "event-form-section-title"
       }, "Additional Settings")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-form-radio-buttons"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Listing Privacy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "radio",
-        onChange: this.update('private_event_yn'),
-        value: "false"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "listing-privacy-radio-button-text"
-      }, "Public page:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "listing-privacy-radio-button-hint-text"
-      }, " Discoverable by anyone on Eventbrite, our distribution partners, and search engines.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "radio",
-        onChange: this.update('private_event_yn'),
-        value: "true"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Listing Privacy", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), eventFormRadioButtons, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "listing-privacy-radio-button-text"
       }, "Private page:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "listing-privacy-radio-button-hint-text"
-      }, " Accessible only by you.")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Type", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      }, " Accessible only by you.")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Type", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        value: this.state.event_type,
+        onChange: this.update('event_type')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "initial",
         disabled: true
       }, "Select the type of event"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "1"
@@ -1036,7 +1045,11 @@ function (_React$Component) {
         value: "18"
       }, "Tournament"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "19"
-      }, "Tradeshow, Consumer Show, or Expo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Topic", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      }, "Tradeshow, Consumer Show, or Expo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Topic", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        value: this.state.event_topic,
+        onChange: this.update('event_topic')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "initial",
         disabled: true
       }, "Select a topic"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "101"

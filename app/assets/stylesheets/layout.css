@@ -582,17 +582,31 @@
   padding-bottom: 50px;
 }
 
+.file-selector-explanation-text {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  color: rgb(57, 54, 79);
+  text-transform: none;
+  width: 33%;
+  margin-bottom: 10px;
+}
 
 .event-form textarea {
   overflow-y: scroll;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
   padding-bottom: 50px;
   background: #FFF;
   color: #000;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  font-size: 10px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6em;
+  font-weight: 400;
   margin: 8px;
   height: 180px;
-  width: 100%;
+  width: 66%;
 }
 
 /* Event Show Page */

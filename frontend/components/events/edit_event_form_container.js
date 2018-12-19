@@ -35,6 +35,8 @@ class EditEventForm extends React.Component {
     event.start_time = event.start_datetime.slice(11,19);
     event.end_date= event.end_datetime.slice(0,10);
     event.end_time = event.end_datetime.slice(11,19);
+    event.event_type = "initial";
+    event.event_topic = "initial";
   }
 
   handleDelete(e) {

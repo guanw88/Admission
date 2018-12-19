@@ -23,7 +23,9 @@ const mapStateToProps = (state) => {
       "description": "Description goes here.",
       "image_url": null,
       "private_event_yn": "false",
-      "organizer_id": state.session.id
+      "organizer_id": state.session.id,
+      "event_type": "initial",
+      "event_topic": "initial"
     },
     formType: "Create"
   };
