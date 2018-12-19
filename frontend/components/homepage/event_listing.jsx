@@ -52,7 +52,7 @@ class EventListing extends React.Component {
               <div className="eventListingDay">{this.extractStartDay(event.start_datetime)}</div>
             </div>
             <div className="eventListingDescriptionContainer">
-              <div className="eventListingName">{event.name}</div>
+              <div className="eventListingName">{event.event_name}</div>
               <div className="eventListingInfo">
                 {this.formatStartDatetime(event.start_datetime)}
                 <br/>

@@ -1978,7 +1978,7 @@ function (_React$Component) {
         className: "eventListingDescriptionContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingName"
-      }, event.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, event.event_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingInfo"
       }, this.formatStartDatetime(event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), event.address + ", " + event.city + ", " + event.state, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatPrice(3.00))))));
     }
