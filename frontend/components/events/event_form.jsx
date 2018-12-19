@@ -68,6 +68,14 @@ class EventForm extends React.Component {
     const optionBarText = (this.props.formType === "Create") ? "Create" : "Edit";
     const deleteButton = (this.props.formType === "Create") ? null :
       <button onClick={this.props.handleDelete} className="event-option-text">Delete</button>;
+
+    const fileUploadContainerContents = (this.state.image_url) ?
+      <img src={this.state.image_url} /> :
+      <div className="file-selector-text-container">
+        <div className="file-selector-title-text">Add Event Image</div>
+        <div className="file-selector-descriptor-text">Choose a compelling image that brings your event to life.</div>
+      </div>;
+
     return (
       <div>
         <div className="event-header">
@@ -161,8 +169,13 @@ class EventForm extends React.Component {
             <br/>
             <label>
               Event Image<br/>
-              <input type="file" onChange={this.handleFile} />
-              <div>We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.</div>
+              <input className="file-selector" type="file" id="event-form-file-selector" onChange={this.handleFile} />
+              <div className="file-selector-label">
+                <label htmlFor="event-form-file-selector">
+                  {fileUploadContainerContents}
+                </label>
+              </div>
+              <div className="">We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.</div>
             </label>
             <label>
               Event Description

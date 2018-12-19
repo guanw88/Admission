@@ -864,6 +864,15 @@ function (_React$Component) {
         onClick: this.props.handleDelete,
         className: "event-option-text"
       }, "Delete");
+      var fileUploadContainerContents = this.state.image_url ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.state.image_url
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "file-selector-text-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "file-selector-title-text"
+      }, "Add Event Image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "file-selector-descriptor-text"
+      }, "Choose a compelling image that brings your event to life."));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -938,9 +947,17 @@ function (_React$Component) {
         value: this.state.end_time,
         onChange: this.update('end_time')
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Image", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "file-selector",
         type: "file",
+        id: "event-form-file-selector",
         onChange: this.handleFile
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "file-selector-label"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "event-form-file-selector"
+      }, fileUploadContainerContents)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: ""
+      }, "We recommend using at least a 2160x1080px (2:1 ratio) image that's no larger than 10MB.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Event Description", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         value: this.state.description,
         onChange: this.update('description')
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
