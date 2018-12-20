@@ -671,7 +671,7 @@ function (_React$Component) {
         minutes = dateObject.getMinutes();
       }
 
-      var ampm = hours > 0 && hours < 12 ? "AM" : "PM";
+      var ampm = dateObject.getHours() < 12 ? "AM" : "PM";
       return hours + ":" + minutes + ampm;
     }
   }, {
@@ -847,8 +847,8 @@ function (_React$Component) {
       e.preventDefault();
       this.setState({
         num_tickets_available: 5,
-        start_datetime: this.state.event_date + " " + this.state.start_time + "GMT-08:00",
-        end_datetime: this.state.end_date + " " + this.state.end_time + "GMT-08:00"
+        start_datetime: this.state.event_date + " " + this.state.start_time + "GMT-07:00",
+        end_datetime: this.state.end_date + " " + this.state.end_time + "GMT-07:00"
       }, function () {
         var formData = new FormData();
         formData.append('event[id]', _this3.state.id);
@@ -1462,8 +1462,8 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "nav"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/login"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_hash_link__WEBPACK_IMPORTED_MODULE_2__["HashLink"], {
+          to: "/#events"
         }, "Browse Events")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/login"
         }, "Create Event")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {

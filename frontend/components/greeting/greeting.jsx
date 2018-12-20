@@ -21,7 +21,7 @@ class Greeting extends React.Component {
     } else {
       return (
         <ul className="nav">
-          <li><Link to="/login">Browse Events</Link></li>
+          <li><HashLink to="/#events">Browse Events</HashLink></li>
           <li><Link to="/login">Create Event</Link></li>
           <li><Link to="/signup">Sign Up</Link></li>
           <li><Link to="/login">Log In</Link></li>
