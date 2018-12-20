@@ -27,7 +27,7 @@ class EventListing extends React.Component {
     } else {
       minutes = dateObject.getMinutes();
     }
-    const ampm = hours > 0 && hours < 12 ? "am" : "pm";
+    const ampm = dateObject.getHours() < 12 ? "am" : "pm";
     return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " +
       this.extractStartDay(datetime) + ", " + hours + ":" + minutes + ampm;
   }

@@ -1980,7 +1980,7 @@ function (_React$Component) {
         minutes = dateObject.getMinutes();
       }
 
-      var ampm = hours > 0 && hours < 12 ? "am" : "pm";
+      var ampm = dateObject.getHours() < 12 ? "am" : "pm";
       return days[dateObject.getDay()] + ", " + this.extractStartMon(datetime) + " " + this.extractStartDay(datetime) + ", " + hours + ":" + minutes + ampm;
     } // question for Liz: should I add price to my events table or get the data from the tickets table later
     // Need to pull from database later
