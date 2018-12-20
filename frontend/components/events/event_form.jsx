@@ -7,6 +7,7 @@ class EventForm extends React.Component {
     this.state = this.props.event;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFile = this.handleFile.bind(this);
+    this.getTimeZoneOffset = this.getTimeZoneOffset.bind(this);
   }
 
   update(field) {
@@ -15,12 +16,22 @@ class EventForm extends React.Component {
     };
   }
 
+  getTimeZoneOffset(date) {
+    const now = new Date(date);
+    let offset = now.getTimezoneOffset();
+    const sign = offset > 0 ? "-" : "+";
+    offset = Math.abs(offset);
+    const offsetHours = Math.floor(offset/60) < 10 ? "0" + Math.floor(offset/60) : Math.floor(offset/60);
+    const offsetMin = offset%60 < 10 ? "0" + offset%60 : offset%60;
+    return "GMT" + sign + offsetHours + ":" + offsetMin;
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
       num_tickets_available: 5,
-      start_datetime: this.state.event_date + " " + this.state.start_time + "GMT-07:00",
-      end_datetime: this.state.end_date + " " + this.state.end_time + "GMT-07:00"
+      start_datetime: this.state.event_date + " " + this.state.start_time + this.getTimeZoneOffset(this.state.event_date),
+      end_datetime: this.state.end_date + " " + this.state.end_time + this.getTimeZoneOffset(this.state.end_date)
     }, () => {
       const formData = new FormData();
       formData.append('event[id]', this.state.id);

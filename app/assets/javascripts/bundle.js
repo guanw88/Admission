@@ -827,6 +827,7 @@ function (_React$Component) {
     _this.state = _this.props.event;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.handleFile = _this.handleFile.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.getTimeZoneOffset = _this.getTimeZoneOffset.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -840,6 +841,17 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "getTimeZoneOffset",
+    value: function getTimeZoneOffset(date) {
+      var now = new Date(date);
+      var offset = now.getTimezoneOffset();
+      var sign = offset > 0 ? "-" : "+";
+      offset = Math.abs(offset);
+      var offsetHours = Math.floor(offset / 60) < 10 ? "0" + Math.floor(offset / 60) : Math.floor(offset / 60);
+      var offsetMin = offset % 60 < 10 ? "0" + offset % 60 : offset % 60;
+      return "GMT" + sign + offsetHours + ":" + offsetMin;
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       var _this3 = this;
@@ -847,8 +859,8 @@ function (_React$Component) {
       e.preventDefault();
       this.setState({
         num_tickets_available: 5,
-        start_datetime: this.state.event_date + " " + this.state.start_time + "GMT-07:00",
-        end_datetime: this.state.end_date + " " + this.state.end_time + "GMT-07:00"
+        start_datetime: this.state.event_date + " " + this.state.start_time + this.getTimeZoneOffset(this.state.event_date),
+        end_datetime: this.state.end_date + " " + this.state.end_time + this.getTimeZoneOffset(this.state.end_date)
       }, function () {
         var formData = new FormData();
         formData.append('event[id]', _this3.state.id);
