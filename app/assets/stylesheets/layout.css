@@ -281,6 +281,7 @@
   justify-content: center;
   flex-wrap: wrap;
   align-content: space-between;
+  width: 100%;
 }
 
 .eventGrid li {

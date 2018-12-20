@@ -495,7 +495,7 @@ function (_React$Component) {
     value: function formatDate(datetime) {
       var dateObject = new Date(datetime);
       var year = dateObject.getYear() + 1900;
-      var month = dateObject.getMonth() + 1 < 10 ? "0" + dateObject.getMonth() + 1 : dateObject.getMonth() + 1;
+      var month = dateObject.getMonth() + 1 < 10 ? "0" + (dateObject.getMonth() + 1) : dateObject.getMonth() + 1;
       var date = dateObject.getDate() < 10 ? "0" + dateObject.getDate() : dateObject.getDate();
       return year + "-" + month + "-" + date;
     }
@@ -677,6 +677,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      debugger;
+
       if (this.props.event) {
         if (this.props.event.image_url === "") {
           this.props.event.image_url = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F50140725%2F18096924889%2F1%2Foriginal.jpg?w=800&auto=compress&rect=0%2C0%2C1646%2C823&s=dfdbf8b7aafb928a581debc1a33c2da7";
