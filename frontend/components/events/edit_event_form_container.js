@@ -31,10 +31,49 @@ class EditEventForm extends React.Component {
     this.props.requestEvent(this.props.eventId);
   }
 
+  formatDate (datetime) {
+    const dateObject = new Date(datetime);
+    const year = dateObject.getYear() + 1900;
+    const month = dateObject.getMonth() + 1 < 10 ? "0" + dateObject.getMonth() + 1 : dateObject.getMonth() + 1;
+    const date = dateObject.getDate() < 10 ? "0" + dateObject.getDate() : dateObject.getDate();
+    return year + "-" + month + "-" + date;
+  }
+
+  formatTime (datetime) {
+    const dateObject = new Date(datetime);
+    let hours;
+    if (dateObject.getHours() < 10) {
+      hours = "0" + dateObject.getHours();
+    } else {
+      hours = dateObject.getHours();
+    }
+    let minutes;
+    if (dateObject.getMinutes() < 10) {
+      minutes = "0" + dateObject.getMinutes();
+    } else {
+      minutes = dateObject.getMinutes();
+    }
+    let seconds;
+    if (dateObject.getSeconds() < 10) {
+      seconds = "0" + dateObject.getSeconds();
+    } else {
+      seconds = dateObject.getSeconds();
+    }
+    return hours + ":" + minutes + ":" + seconds;
+  }
+
+  createDateAsUTC(date) {
+    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  }
+
+  convertDateToUTC(date) {
+    return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+  }
+
   parseEvent(event) {
-    event.start_time = event.start_datetime.slice(11,19);
-    event.end_date= event.end_datetime.slice(0,10);
-    event.end_time = event.end_datetime.slice(11,19);
+    event.start_time = this.formatTime(event.start_datetime);
+    event.end_date= this.formatDate(event.end_datetime);
+    event.end_time = this.formatTime(event.end_datetime);
     event.event_type = "initial";
     event.event_topic = "initial";
   }

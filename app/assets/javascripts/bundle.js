@@ -491,11 +491,60 @@ function (_React$Component) {
       this.props.requestEvent(this.props.eventId);
     }
   }, {
+    key: "formatDate",
+    value: function formatDate(datetime) {
+      var dateObject = new Date(datetime);
+      var year = dateObject.getYear() + 1900;
+      var month = dateObject.getMonth() + 1 < 10 ? "0" + dateObject.getMonth() + 1 : dateObject.getMonth() + 1;
+      var date = dateObject.getDate() < 10 ? "0" + dateObject.getDate() : dateObject.getDate();
+      return year + "-" + month + "-" + date;
+    }
+  }, {
+    key: "formatTime",
+    value: function formatTime(datetime) {
+      var dateObject = new Date(datetime);
+      var hours;
+
+      if (dateObject.getHours() < 10) {
+        hours = "0" + dateObject.getHours();
+      } else {
+        hours = dateObject.getHours();
+      }
+
+      var minutes;
+
+      if (dateObject.getMinutes() < 10) {
+        minutes = "0" + dateObject.getMinutes();
+      } else {
+        minutes = dateObject.getMinutes();
+      }
+
+      var seconds;
+
+      if (dateObject.getSeconds() < 10) {
+        seconds = "0" + dateObject.getSeconds();
+      } else {
+        seconds = dateObject.getSeconds();
+      }
+
+      return hours + ":" + minutes + ":" + seconds;
+    }
+  }, {
+    key: "createDateAsUTC",
+    value: function createDateAsUTC(date) {
+      return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+    }
+  }, {
+    key: "convertDateToUTC",
+    value: function convertDateToUTC(date) {
+      return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    }
+  }, {
     key: "parseEvent",
     value: function parseEvent(event) {
-      event.start_time = event.start_datetime.slice(11, 19);
-      event.end_date = event.end_datetime.slice(0, 10);
-      event.end_time = event.end_datetime.slice(11, 19);
+      event.start_time = this.formatTime(event.start_datetime);
+      event.end_date = this.formatDate(event.end_datetime);
+      event.end_time = this.formatTime(event.end_datetime);
       event.event_type = "initial";
       event.event_topic = "initial";
     }
@@ -585,20 +634,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.requestEvent(this.props.eventId);
-    } //   address: "825 Battery Street"
-    // city: "San Francisco"
-    // description: "SUPER LONG PARTY"
-    // end_datetime: "2018-12-17T00:00:00.000Z"
-    // event_date: "2018-12-15"
-    // event_name: "Event from Form"
-    // id: 7
-    // image_url: ""
-    // num_tickets_available: 5
-    // private_event_yn: false
-    // start_datetime: "2018-12-15T12:00:00.000Z"
-    // state: "CA"
-    // zip: "94111"
-
+    }
   }, {
     key: "extractStartMon",
     value: function extractStartMon(datetime) {
@@ -652,6 +688,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "event-display-edit-button"
         }, "Edit")) : null;
+        var dateTimeString = this.formatStartDate(this.props.event.start_datetime) === this.formatStartDate(this.props.event.end_datetime) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.formatStartDate(this.props.event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatTime(this.props.event.start_datetime), " - ", this.formatTime(this.props.event.end_datetime)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.formatStartDate(this.props.event.start_datetime), ", ", this.formatTime(this.props.event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatStartDate(this.props.event.end_datetime), ", ", this.formatTime(this.props.event.end_datetime));
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -685,9 +722,9 @@ function (_React$Component) {
           className: "event-display-body-right"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "event-display-header-label"
-        }, "Date and Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, "Date and Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-body-text"
-        }, this.formatStartDate(this.props.event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatTime(this.props.event.start_datetime), " - ", this.formatTime(this.props.event.end_datetime)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, dateTimeString), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "event-display-header-label"
         }, "Location"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "event-display-body-text"
@@ -810,8 +847,8 @@ function (_React$Component) {
       e.preventDefault();
       this.setState({
         num_tickets_available: 5,
-        start_datetime: this.state.event_date + " " + this.state.start_time,
-        end_datetime: this.state.end_date + " " + this.state.end_time
+        start_datetime: this.state.event_date + " " + this.state.start_time + "GMT-08:00",
+        end_datetime: this.state.end_date + " " + this.state.end_time + "GMT-08:00"
       }, function () {
         var formData = new FormData();
         formData.append('event[id]', _this3.state.id);
@@ -1419,7 +1456,7 @@ function (_React$Component) {
           to: "/event/new"
         }, "Create Event")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/my-events"
-        }, "Welcome, ", this.props.currentUser.first_name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        }, this.props.currentUser.first_name, "'s Events")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: this.props.logout
         }, "Log Out"));
       } else {

@@ -19,8 +19,8 @@ class EventForm extends React.Component {
     e.preventDefault();
     this.setState({
       num_tickets_available: 5,
-      start_datetime: this.state.event_date + " " + this.state.start_time,
-      end_datetime: this.state.end_date + " " + this.state.end_time
+      start_datetime: this.state.event_date + " " + this.state.start_time + "GMT-08:00",
+      end_datetime: this.state.end_date + " " + this.state.end_time + "GMT-08:00"
     }, () => {
       const formData = new FormData();
       formData.append('event[id]', this.state.id);

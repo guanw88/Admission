@@ -14,7 +14,7 @@ class Greeting extends React.Component {
         <ul className="nav">
           <li><HashLink to="/#events">Browse Events</HashLink></li>
           <li><Link to="/event/new">Create Event</Link></li>
-          <li><Link to="/my-events">Welcome, {this.props.currentUser.first_name}</Link></li>
+          <li><Link to="/my-events">{this.props.currentUser.first_name}&apos;s Events</Link></li>
           <li onClick={this.props.logout}>Log Out</li>
         </ul>
       );

@@ -11,21 +11,6 @@ class EventDetail extends React.Component {
     this.props.requestEvent(this.props.eventId);
   }
 
-//   address: "825 Battery Street"
-// city: "San Francisco"
-// description: "SUPER LONG PARTY"
-// end_datetime: "2018-12-17T00:00:00.000Z"
-// event_date: "2018-12-15"
-// event_name: "Event from Form"
-// id: 7
-// image_url: ""
-// num_tickets_available: 5
-// private_event_yn: false
-// start_datetime: "2018-12-15T12:00:00.000Z"
-// state: "CA"
-// zip: "94111"
-
-
   extractStartMon(datetime) {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const dateObject = new Date(datetime);
@@ -72,6 +57,19 @@ class EventDetail extends React.Component {
       const editButton = (this.props.currentUser && this.props.currentUser.id === this.props.event.organizer_id) ?
       <Link to={editPath}><button className="event-display-edit-button">Edit</button></Link> : null;
 
+      const dateTimeString = (this.formatStartDate(this.props.event.start_datetime) === this.formatStartDate(this.props.event.end_datetime)) ?
+        <div>
+          {this.formatStartDate(this.props.event.start_datetime)}
+          <br/>
+          {this.formatTime(this.props.event.start_datetime)} - {this.formatTime(this.props.event.end_datetime)}
+        </div>
+        :
+        <div>
+          {this.formatStartDate(this.props.event.start_datetime)}, {this.formatTime(this.props.event.start_datetime)}
+          <br/>
+          {this.formatStartDate(this.props.event.end_datetime)}, {this.formatTime(this.props.event.end_datetime)}
+        </div>;
+
       return (
         <div className="event-display-container">
           <div className="event-display-header">
@@ -94,11 +92,9 @@ class EventDetail extends React.Component {
             </div>
             <div className="event-display-body-right">
               <p className="event-display-header-label">Date and Time</p>
-              <p className="event-display-body-text">
-                {this.formatStartDate(this.props.event.start_datetime)}
-                <br/>
-                {this.formatTime(this.props.event.start_datetime)} - {this.formatTime(this.props.event.end_datetime)}
-              </p>
+              <div className="event-display-body-text">
+                {dateTimeString}
+              </div>
               <p className="event-display-header-label">Location</p>
               <p className="event-display-body-text">
                 {this.props.event.address}
