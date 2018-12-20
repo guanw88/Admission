@@ -677,11 +677,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
-
       if (this.props.event) {
-        if (this.props.event.image_url === "") {
-          this.props.event.image_url = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F50140725%2F18096924889%2F1%2Foriginal.jpg?w=800&auto=compress&rect=0%2C0%2C1646%2C823&s=dfdbf8b7aafb928a581debc1a33c2da7";
+        if (this.props.event.image_url === "" || this.props.event.image_url === null) {
+          this.props.event.image_url = "https://cdn.pixabay.com/photo/2016/10/23/17/06/calendar-1763587_1280.png";
         }
 
         var editPath = "/event/" + this.props.eventId + "/edit";
@@ -2018,6 +2016,11 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var event = this.props.event;
+
+      if (event.image_url === "" || event.image_url === null) {
+        event.image_url = "https://cdn.pixabay.com/photo/2016/10/23/17/06/calendar-1763587_1280.png";
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "eventListingContainer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {

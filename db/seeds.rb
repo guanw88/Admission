@@ -145,5 +145,62 @@ ActiveRecord::Base.transaction do
   event6.photo.attach(io: file, filename: 'champagner-1071356_1280.jpg')
   event6.save!
 
+  event7 = Event.new(
+    event_date: "2019-12-22",
+    event_name: "Circus Bella Presents: Kaleidoscope",
+    num_tickets_available: 9999,
+    start_datetime: "2019-12-22 13:30:00 GMT-0700",
+    end_datetime: "2019-12-22 15:30:00 GMT-0700",
+    address: "699 Avenue of the Palms",
+    city: "San Francisco",
+    state: "CA",
+    zip: "94130",
+    description: "Get ready for a full-force, non-stop show of thrilling feats in Circus Bella’s upcoming winter showcase Kaleidoscope, a celebration of diversity and color! Join us for an evening of performances by aerialists, acrobats, a family of foot jugglers, clowns, and more – all performed to original music written by local music legend Rob Reich and performed by a live six-piece band! Located at the restaurant Mersea in the heart of Treasure Island, there’s no better place to celebrate and have fun this holiday season.",
+    private_event_yn: false,
+    organizer_id: 1
+  )
+
+  file = File.open('app/assets/images/circus-828680_1280.jpg')
+  event7.photo.attach(io: file, filename: 'circus-828680_1280.jpg')
+  event7.save!
+
+  event7 = Event.new(
+    event_date: "2019-07-19",
+    event_name: "Art in the Park: Live Music, Arts & Spoken Word | Tenderloin",
+    num_tickets_available: 9999,
+    start_datetime: "2019-12-22 15:00:00 GMT-0700",
+    end_datetime: "2019-12-22 17:00:00 GMT-0700",
+    address: "295 Eddy St",
+    city: "San Francisco",
+    state: "CA",
+    zip: "94102",
+    description: "An urban oasis in the Tenderloin, Boeddeker Park hosts “Art in the Park” every third Saturday for an afternoon of free live music, visual art and spoken word from 3pm to 5pm with free refreshments.",
+    private_event_yn: false,
+    organizer_id: 1
+  )
+
+  file = File.open('app/assets/images/concert-1838412_1280.jpg')
+  event7.photo.attach(io: file, filename: 'concert-1838412_1280.jpg')
+  event7.save!
+
+  event8 = Event.new(
+    event_date: "2019-08-03",
+    event_name: "New Filmmakers Open Screening",
+    num_tickets_available: 9999,
+    start_datetime: "2019-08-03 20:00:00 GMT-0700",
+    end_datetime: "2019-08-03 23:00:00 GMT-0700",
+    address: "992 Valencia Ave",
+    city: "San Francisco",
+    state: "CA",
+    zip: "94110",
+    description: "The Bay Area’s only Open Screening for up and coming filmmakers takes place each month at Artists’ Television Access in the Mission.",
+    private_event_yn: false,
+    organizer_id: 1
+  )
+
+  file = File.open('app/assets/images/demonstration-767982_1280.jpg')
+  event8.photo.attach(io: file, filename: 'demonstration-767982_1280.jpg')
+  event8.save!
+
 
 end

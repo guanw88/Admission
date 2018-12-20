@@ -46,11 +46,10 @@ class EventDetail extends React.Component {
   }
 
   render() {
-    debugger;
     if (this.props.event){
-      if (this.props.event.image_url === "") {
+      if (this.props.event.image_url === "" || this.props.event.image_url === null) {
         this.props.event.image_url =
-          "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F50140725%2F18096924889%2F1%2Foriginal.jpg?w=800&auto=compress&rect=0%2C0%2C1646%2C823&s=dfdbf8b7aafb928a581debc1a33c2da7";
+          "https://cdn.pixabay.com/photo/2016/10/23/17/06/calendar-1763587_1280.png";
       }
 
       const editPath = "/event/" + this.props.eventId + "/edit";
