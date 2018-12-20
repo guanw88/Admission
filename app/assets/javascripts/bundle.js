@@ -1931,13 +1931,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 
 
@@ -1948,9 +1948,13 @@ function (_React$Component) {
   _inherits(EventListing, _React$Component);
 
   function EventListing(props) {
+    var _this;
+
     _classCallCheck(this, EventListing);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(EventListing).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EventListing).call(this, props));
+    _this.randomPrice = _this.randomPrice.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
   }
 
   _createClass(EventListing, [{
@@ -1988,7 +1992,13 @@ function (_React$Component) {
   }, {
     key: "formatPrice",
     value: function formatPrice(price) {
-      return price = 0 ? undefined : "Starts at $" + price.toFixed(2);
+      return price === 0 ? "Free" : "Starts at $" + price.toFixed(2);
+    }
+  }, {
+    key: "randomPrice",
+    value: function randomPrice() {
+      var prices = [0, 3.00, 5.00, 19.95, 20.00, 50.00];
+      return prices[Math.floor(Math.random() * prices.length)];
     }
   }, {
     key: "render",
@@ -2017,7 +2027,7 @@ function (_React$Component) {
         className: "eventListingName"
       }, event.event_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "eventListingInfo"
-      }, this.formatStartDatetime(event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), event.address + ", " + event.city + ", " + event.state, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatPrice(3.00))))));
+      }, this.formatStartDatetime(event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), event.address + ", " + event.city + ", " + event.state, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatPrice(this.randomPrice()))))));
     }
   }]);
 

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 class EventListing extends React.Component {
   constructor(props) {
     super(props);
+    this.randomPrice = this.randomPrice.bind(this);
   }
 
   extractStartMon(datetime) {
@@ -35,7 +36,12 @@ class EventListing extends React.Component {
   // question for Liz: should I add price to my events table or get the data from the tickets table later
   // Need to pull from database later
   formatPrice(price) {
-    return price = 0 ? "Free" : "Starts at $" + price.toFixed(2);
+    return price === 0 ? "Free" : "Starts at $" + price.toFixed(2);
+  }
+
+  randomPrice() {
+    const prices = [0, 3.00, 5.00, 19.95, 20.00, 50.00];
+    return prices[Math.floor ( Math.random() * prices.length )];
   }
 
   render() {
@@ -58,7 +64,7 @@ class EventListing extends React.Component {
                 <br/>
                 {event.address + ", " + event.city + ", " + event.state}
                 <br/>
-                {this.formatPrice(3.00)}
+                {this.formatPrice(this.randomPrice())}
               </div>
             </div>
           </div>
