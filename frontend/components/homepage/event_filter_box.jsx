@@ -15,7 +15,7 @@ class EventFilterBox extends React.Component {
             <label>
               <input
                 type="text"
-                placeholder="Los Angeles">
+                placeholder="San Francisco">
               </input>
             </label>
           </div>

@@ -2006,7 +2006,7 @@ function (_React$Component) {
         className: "locationFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        placeholder: "Los Angeles"
+        placeholder: "San Francisco"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "categoryFilter"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Looking For"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -2342,7 +2342,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _filter_icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filter_icon */ "./frontend/components/homepage/filter_icon.jsx");
+/* harmony import */ var react_router_hash_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-hash-link */ "./node_modules/react-router-hash-link/lib/index.js");
+/* harmony import */ var react_router_hash_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_hash_link__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _filter_icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./filter_icon */ "./frontend/components/homepage/filter_icon.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2365,6 +2367,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var FilterIcons =
 /*#__PURE__*/
 function (_React$Component) {
@@ -2379,21 +2382,31 @@ function (_React$Component) {
   _createClass(FilterIcons, [{
     key: "render",
     value: function render() {
+      var eventIds = Object.keys(this.props.events);
+      var randomEventId = eventIds[Math.floor(Math.random() * eventIds.length)];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filterIconsContainer"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_hash_link__WEBPACK_IMPORTED_MODULE_2__["HashLink"], {
+        to: "/#events"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
         image: window.searchIcon,
-        text: "Moods"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        text: "Browse"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/event/new"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
         image: window.searchIcon,
-        text: "Categories"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        text: "Create"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/my-events"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
         image: window.searchIcon,
-        text: "Date"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        text: "My Events"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/event/" + randomEventId
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
         image: window.searchIcon,
         text: "Surprise me!"
-      }));
+      })));
     }
   }]);
 
@@ -2420,7 +2433,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    events: state.entities.events
   };
 };
 
@@ -2517,7 +2531,9 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_slider__WEBPACK_IMPORTED_MODULE_2__["default"], {
         millisecToNextSlide: 20000
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_filter_box_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icons_container__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_display_container__WEBPACK_IMPORTED_MODULE_5__["default"], null));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_filter_box_container__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filter_icons_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        events: this.props.events
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_display_container__WEBPACK_IMPORTED_MODULE_5__["default"], null));
     }
   }]);
 

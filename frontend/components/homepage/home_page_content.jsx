@@ -16,7 +16,7 @@ class HomePageContent extends React.Component {
       <div>
         <Slider millisecToNextSlide={20000} />
         <EventFilterBoxContainer />
-        <FilterIconsContainer />
+        <FilterIconsContainer events={this.props.events}/>
         <EventDisplayContainer />
       </div>
     );
