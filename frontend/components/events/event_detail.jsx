@@ -125,7 +125,7 @@ class EventDetail extends React.Component {
           <div className="event-display-map">
             {googleMap}
           </div>
-          <TicketPurchaseModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
+          <TicketPurchaseModal loggedIn={Boolean(this.props.currentUser)} isOpen={this.state.isModalOpen} onClose={this.closeModal} />
         </div>
       );
     } else {

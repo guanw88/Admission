@@ -765,6 +765,7 @@ function (_React$Component) {
         }, this.props.event.address, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.event.city, ", ", this.props.event.state, " ", this.props.event.zip)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-map"
         }, googleMap), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tickets_ticket_purchase_modal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          loggedIn: Boolean(this.props.currentUser),
           isOpen: this.state.isModalOpen,
           onClose: this.closeModal
         }));
@@ -3068,7 +3069,6 @@ function (_React$Component) {
   }, {
     key: "updateTicketCount",
     value: function updateTicketCount(e) {
-      debugger;
       this.setState({
         ticketsPurchased: e.target.value
       });
@@ -3079,55 +3079,61 @@ function (_React$Component) {
       if (this.props.isOpen === false) {
         return null;
       } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          onClick: this.closeModal,
-          className: "ticket-purchase-modal-backdrop"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "ticket-purchase-modal"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "ticket-purchase-modal-header"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Register"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: this.closeModal,
-          className: "ticket-purchase-modal-close-button"
-        }, "Close")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "ticket-purchase-modal-body"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "ticket-purchase-modal-sell-by-text"
-        }, "Sales end on January 23"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "ticket-purchase-modal-boxes"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "ticket-purchase-modal-box"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "ticket-purchase-modal-box-name"
-        }, "General Admission"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "ticket-purchase-modal-box-price"
-        }, "Free")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
-          onChange: this.updateTicketCount,
-          name: "ticket-purchase-count"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: "1",
-          selected: this.state.ticketsPurchased === "1"
-        }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: "2",
-          selected: this.state.ticketsPurchased === "2"
-        }, "2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: "3",
-          selected: this.state.ticketsPurchased === "3"
-        }, "3"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: "4",
-          selected: this.state.ticketsPurchased === "4"
-        }, "4"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-          value: "5",
-          selected: this.state.ticketsPurchased === "5"
-        }, "5"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "ticket-purchase-modal-footer"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "ticket-purchase-modal-footer-text"
-        }, "QTY: ", this.state.ticketsPurchased), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "ticket-purchase-modal-footer-text"
-        }, "FREE"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "ticket-purchase-modal-footer-button"
-        }, "Checkout"))));
+        if (this.props.loggedIn) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            onClick: this.closeModal,
+            className: "ticket-purchase-modal-backdrop"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "ticket-purchase-modal"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "ticket-purchase-modal-header"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Register"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            onClick: this.closeModal,
+            className: "ticket-purchase-modal-close-button"
+          }, "Close")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "ticket-purchase-modal-body"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "ticket-purchase-modal-sell-by-text"
+          }, "Sales end on January 23"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "ticket-purchase-modal-boxes"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "ticket-purchase-modal-box"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "ticket-purchase-modal-box-name"
+          }, "General Admission"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "ticket-purchase-modal-box-price"
+          }, "Free")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+            onChange: this.updateTicketCount,
+            name: "ticket-purchase-count"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "1",
+            selected: this.state.ticketsPurchased === "1"
+          }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "2",
+            selected: this.state.ticketsPurchased === "2"
+          }, "2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "3",
+            selected: this.state.ticketsPurchased === "3"
+          }, "3"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "4",
+            selected: this.state.ticketsPurchased === "4"
+          }, "4"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            value: "5",
+            selected: this.state.ticketsPurchased === "5"
+          }, "5"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "ticket-purchase-modal-footer"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "ticket-purchase-modal-footer-text"
+          }, "QTY: ", this.state.ticketsPurchased), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "ticket-purchase-modal-footer-text"
+          }, "FREE"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "ticket-purchase-modal-footer-button"
+          }, "Checkout"))));
+        } else {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+            to: "/login"
+          });
+        }
       }
     }
   }]);
