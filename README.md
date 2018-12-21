@@ -7,7 +7,7 @@ Eventful! is a portfolio project based on the Eventbrite website, built using Ru
 Click "Log In" and "Demo Login" to test the website immediately!
 
 ---
-# Features
+## Features
 
 * User creation and authentication
   * Demo login included. Click the "Demo Login" button on the [login page](https://eventfullapp.herokuapp.com/#/login) to get started quickly!
@@ -21,7 +21,7 @@ Click "Log In" and "Demo Login" to test the website immediately!
 * Ticketing, event discovery, and saved events coming soon!
 
 ---
-# Additional Information
+## Additional Information
 
 [George Wang on LinkedIn](https://www.linkedin.com/in/guanw88)
 
