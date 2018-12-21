@@ -21,6 +21,12 @@ Click "Log In" and "Demo Login" to test the website immediately!
 * Ticketing, event discovery, and saved events coming soon!
 
 ---
+## Screenshots 
+
+---
+## Sample Code
+
+---
 ## Additional Information
 
 [George Wang on LinkedIn](https://www.linkedin.com/in/guanw88)
