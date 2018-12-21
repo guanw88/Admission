@@ -1,10 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import TicketPurchaseModal from '../tickets/ticket_purchase_modal';
 
 class EventDetail extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { isModalOpen: false };
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
 
+  openModal() {
+    this.setState({ isModalOpen: true })
+  }
+
+  closeModal() {
+    this.setState({ isModalOpen: false })
   }
 
   componentDidMount() {
@@ -87,7 +98,7 @@ class EventDetail extends React.Component {
           </div>
           <div className="event-display-buttons">
             <button className="event-display-bookmark-button"></button>
-            <button className="event-display-register-button">Register</button>
+            <button onClick={this.openModal} className="event-display-register-button">Register</button>
           </div>
           <div className="event-display-body">
             <div className="event-display-body-left">
@@ -114,7 +125,7 @@ class EventDetail extends React.Component {
           <div className="event-display-map">
             {googleMap}
           </div>
-
+          <TicketPurchaseModal isOpen={this.state.isModalOpen} onClose={this.closeModal} />
         </div>
       );
     } else {
