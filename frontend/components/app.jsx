@@ -3,7 +3,7 @@ import GreetingContainer from './greeting/greeting_container';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
-import { AuthRoute } from '../util/route_util';
+import { ProtectedRoute, AuthRoute } from '../util/route_util';
 import HomePageContainer from "./homepage/home_page_container";
 import EventDetailContainer from "./events/event_detail_container";
 import CreateEventFormContainer from "./events/create_event_form_container";
@@ -26,10 +26,10 @@ const App = () => {
       </header>
       <Switch>
         <Route exact path="/" component={HomePageContainer} />
-        <Route exact path="/event/new" component={CreateEventFormContainer} />
-        <Route exact path="/event/:id/edit" component={EditEventFormContainer} />
+        <ProtectedRoute exact path="/event/new" component={CreateEventFormContainer} />
+        <ProtectedRoute exact path="/event/:id/edit" component={EditEventFormContainer} />
         <Route exact path="/event/:id" component={EventDetailContainer} />
-        <Route exact path="/my-events" component={EventManagerContainer} />
+        <ProtectedRoute exact path="/my-events" component={EventManagerContainer} />
         <AuthRoute path="/login" component={LoginFormContainer} />
         <AuthRoute path="/signup" component={SignupFormContainer} />
         <Route path="*" component={NoMatch} />
