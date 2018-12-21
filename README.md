@@ -1,24 +1,27 @@
-# README
+# Eventful!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Eventful! is a portfolio project based on the Eventbrite website, built using Ruby on Rails, React, and Postgresql. 
 
-Things you may want to cover:
+[Link To Live Website](https://eventfullapp.herokuapp.com)
 
-* Ruby version
+Click "Log In" and "Demo Login" to test the website immediately!
 
-* System dependencies
+---
+# Features
 
-* Configuration
+* User creation and authentication
+  * Demo login included. Click the "Demo Login" button on the [login page](https://eventfullapp.herokuapp.com/#/login) to get started quickly!
+  * Friendly error messages to help make the signup and login process seamless.
 
-* Database creation
+* Event creation
+  * Promote your event through unique event pages. Showcase your event with pictures and a custom description.
+  * Google Map integration.
+  * Support for multiple time zones and daylight savings time. 
 
-* Database initialization
+* Ticketing, event discovery, and saved events coming soon!
 
-* How to run the test suite
+---
+# Additional Information
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[George Wang on LinkedIn](https://www.linkedin.com/in/guanw88)
+[George Wang on Github](https://github.com/guanw88)
