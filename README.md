@@ -23,8 +23,23 @@ Click "Log In" and "Demo Login" to test the website immediately!
 ---
 ## Screenshots 
 
+![Image]()
+
 ---
 ## Sample Code
+
+Custom code to convert event start and end time to Pacific Time 
+```js
+ getTimeZoneOffset(date) {
+    const now = new Date(date);
+    let offset = now.getTimezoneOffset();
+    const sign = offset > 0 ? "-" : "+";
+    offset = Math.abs(offset);
+    const offsetHours = Math.floor(offset/60) < 10 ? "0" + Math.floor(offset/60) : Math.floor(offset/60);
+    const offsetMin = offset%60 < 10 ? "0" + offset%60 : offset%60;
+    return "GMT" + sign + offsetHours + ":" + offsetMin;
+  }
+ ```
 
 ---
 ## Additional Information
