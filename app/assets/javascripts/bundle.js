@@ -1229,7 +1229,7 @@ function (_React$Component) {
       var _this = this;
 
       var currentUserId = this.props.currentUser ? this.props.currentUser.id : null;
-      var events = Object.values(this.props.events).map(function (event) {
+      var events = Object.values(this.props.events).length === 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "You have no managed events at this time.") : Object.values(this.props.events).map(function (event) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_event_manager_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           deleteEvent: _this.props.deleteEvent,
           key: event.id,
@@ -1240,7 +1240,7 @@ function (_React$Component) {
         className: "event-manager-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "event-manager-title"
-      }, "Manage Events"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Current User ID is: ", currentUserId), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, "Manage Events"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "event-manager-item-container"
       }, events));
     }
