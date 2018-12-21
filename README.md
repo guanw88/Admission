@@ -24,4 +24,5 @@ Click "Log In" and "Demo Login" to test the website immediately!
 # Additional Information
 
 [George Wang on LinkedIn](https://www.linkedin.com/in/guanw88)
+
 [George Wang on Github](https://github.com/guanw88)
