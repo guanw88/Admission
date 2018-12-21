@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
     <%= javascript_include_tag 'application' %>
     <script type="text/javascript">
+      window.googleAPIKey = "<%= Rails.application.credentials.google[:api_key] %>"
       window.sliderImage1 = "<%= image_url('home_page_slider_1.jpg') %>"
       window.sliderImage2 = "<%= image_url('home_page_slider_2.jpg') %>"
       window.searchIcon = "<%= image_url('search_icon.svg') %>"

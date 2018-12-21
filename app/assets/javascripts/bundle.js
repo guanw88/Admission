@@ -289,6 +289,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events_create_event_form_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./events/create_event_form_container */ "./frontend/components/events/create_event_form_container.js");
 /* harmony import */ var _events_edit_event_form_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./events/edit_event_form_container */ "./frontend/components/events/edit_event_form_container.js");
 /* harmony import */ var _events_event_manager_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./events/event_manager_container */ "./frontend/components/events/event_manager_container.js");
+/* harmony import */ var _footer_footer_container__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./footer/footer_container */ "./frontend/components/footer/footer_container.js");
+
 
 
 
@@ -343,7 +345,7 @@ var App = function App() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
     path: "*",
     component: NoMatch
-  })));
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_footer_footer_container__WEBPACK_IMPORTED_MODULE_11__["default"], null)));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -682,13 +684,16 @@ function (_React$Component) {
           this.props.event.image_url = "https://cdn.pixabay.com/photo/2016/10/23/17/06/calendar-1763587_1280.png";
         }
 
-        var editPath = "/event/" + this.props.eventId + "/edit";
-        var editButton = this.props.currentUser && this.props.currentUser.id === this.props.event.organizer_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: editPath
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "event-display-edit-button"
-        }, "Edit")) : null;
         var dateTimeString = this.formatStartDate(this.props.event.start_datetime) === this.formatStartDate(this.props.event.end_datetime) ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.formatStartDate(this.props.event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatTime(this.props.event.start_datetime), " - ", this.formatTime(this.props.event.end_datetime)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.formatStartDate(this.props.event.start_datetime), ", ", this.formatTime(this.props.event.start_datetime), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.formatStartDate(this.props.event.end_datetime), ", ", this.formatTime(this.props.event.end_datetime));
+        var addressQuery = "https://www.google.com/maps/embed/v1/place?key=" + window.googleAPIKey + "&q=" + this.props.event.address.split(" ").join("+") + ",+" + this.props.event.city + ",+" + this.props.event.state + "+" + this.props.event.zip;
+        var googleMap = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("iframe", {
+          style: {
+            width: "100%",
+            height: "100%",
+            frameBorder: "0"
+          },
+          src: addressQuery
+        });
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -708,7 +713,7 @@ function (_React$Component) {
           className: "event-display-buttons"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "event-display-bookmark-button"
-        }), editButton, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "event-display-register-button"
         }, "Register")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-body"
@@ -720,15 +725,21 @@ function (_React$Component) {
           className: "event-display-body-text"
         }, this.props.event.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-body-right"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "event-display-detail-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "event-display-header-label"
         }, "Date and Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "event-display-body-text"
-        }, dateTimeString), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, dateTimeString)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "event-display-detail-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "event-display-header-label"
         }, "Location"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "event-display-body-text"
-        }, this.props.event.address, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.event.city, ", ", this.props.event.state, " ", this.props.event.zip))));
+        }, this.props.event.address, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.event.city, ", ", this.props.event.state, " ", this.props.event.zip)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "event-display-map"
+        }, googleMap));
       } else {
         return null;
       }
@@ -1406,6 +1417,106 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (EventManagerItem);
+
+/***/ }),
+
+/***/ "./frontend/components/footer/footer.jsx":
+/*!***********************************************!*\
+  !*** ./frontend/components/footer/footer.jsx ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Footer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Footer, _React$Component);
+
+  function Footer(props) {
+    _classCallCheck(this, Footer);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Footer).call(this, props));
+  }
+
+  _createClass(Footer, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "This website is a porfolio project built using Rails, React, and Postgresql. For more information, please click the links below."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "footer-logos"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "footer-logo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/guanw88",
+        target: "_blank"
+      }, "LinkedIn")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "footer-logo"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://github.com/guanw88/EventFul",
+        target: "_blank"
+      }, "Github"))));
+    }
+  }]);
+
+  return Footer;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Footer);
+
+/***/ }),
+
+/***/ "./frontend/components/footer/footer_container.js":
+/*!********************************************************!*\
+  !*** ./frontend/components/footer/footer_container.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./footer */ "./frontend/components/footer/footer.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUser: state.entities.users[state.session.id]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_footer__WEBPACK_IMPORTED_MODULE_0__["default"]));
 
 /***/ }),
 

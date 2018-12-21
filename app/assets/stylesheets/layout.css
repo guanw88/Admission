@@ -695,7 +695,7 @@
 }
 
 .event-display-bookmark-button {
-  width: 66%;
+  width: 75%;
 }
 
 .event-display-edit-button {
@@ -712,6 +712,7 @@
   font-size: 15px;
   text-transform: capitalize;
   transition: all .2s ease-out;
+  margin-right: 10px;
 }
 
 .event-display-edit-button:hover {
@@ -752,11 +753,16 @@
 
 .event-display-body-left {
   width: 75%;
-  margin-left: 90px;
+  margin-left: 80px;
+  margin-right: 80px;
 }
 
 .event-display-body-right {
   width: 25%;
+}
+
+.event-display-detail-container {
+  margin-bottom: 50px;
 }
 
 .event-display-header-label {
@@ -776,6 +782,10 @@
   padding-right: 20px;
   margin-top: 15px;
   margin-bottom: 10px;
+}
+
+.event-display-map {
+  height: 360px;
 }
 
 .event-form-radio-buttons {

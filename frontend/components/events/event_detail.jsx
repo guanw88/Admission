@@ -52,10 +52,6 @@ class EventDetail extends React.Component {
           "https://cdn.pixabay.com/photo/2016/10/23/17/06/calendar-1763587_1280.png";
       }
 
-      const editPath = "/event/" + this.props.eventId + "/edit";
-      const editButton = (this.props.currentUser && this.props.currentUser.id === this.props.event.organizer_id) ?
-      <Link to={editPath}><button className="event-display-edit-button">Edit</button></Link> : null;
-
       const dateTimeString = (this.formatStartDate(this.props.event.start_datetime) === this.formatStartDate(this.props.event.end_datetime)) ?
         <div>
           {this.formatStartDate(this.props.event.start_datetime)}
@@ -69,6 +65,16 @@ class EventDetail extends React.Component {
           {this.formatStartDate(this.props.event.end_datetime)}, {this.formatTime(this.props.event.end_datetime)}
         </div>;
 
+      const addressQuery = "https://www.google.com/maps/embed/v1/place?key=" + window.googleAPIKey + "&q="
+        + this.props.event.address.split(" ").join("+") + ",+" + this.props.event.city + ",+"
+        + this.props.event.state + "+" + this.props.event.zip;
+
+      const googleMap =
+        <iframe
+          style={{width: "100%", height: "100%", frameBorder: "0"}}
+          src={addressQuery}>
+        </iframe>;
+
       return (
         <div className="event-display-container">
           <div className="event-display-header">
@@ -81,7 +87,6 @@ class EventDetail extends React.Component {
           </div>
           <div className="event-display-buttons">
             <button className="event-display-bookmark-button"></button>
-            {editButton}
             <button className="event-display-register-button">Register</button>
           </div>
           <div className="event-display-body">
@@ -90,18 +95,26 @@ class EventDetail extends React.Component {
               <p className="event-display-body-text">{this.props.event.description}</p>
             </div>
             <div className="event-display-body-right">
-              <p className="event-display-header-label">Date and Time</p>
-              <div className="event-display-body-text">
-                {dateTimeString}
+              <div className="event-display-detail-container">
+                <p className="event-display-header-label">Date and Time</p>
+                <div className="event-display-body-text">
+                  {dateTimeString}
+                </div>
               </div>
-              <p className="event-display-header-label">Location</p>
-              <p className="event-display-body-text">
-                {this.props.event.address}
-                <br/>
-                {this.props.event.city}, {this.props.event.state} {this.props.event.zip}
-              </p>
+              <div className="event-display-detail-container">
+                <p className="event-display-header-label">Location</p>
+                <p className="event-display-body-text">
+                  {this.props.event.address}
+                  <br/>
+                  {this.props.event.city}, {this.props.event.state} {this.props.event.zip}
+                </p>
+              </div>
             </div>
           </div>
+          <div className="event-display-map">
+            {googleMap}
+          </div>
+
         </div>
       );
     } else {

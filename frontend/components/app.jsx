@@ -9,6 +9,7 @@ import EventDetailContainer from "./events/event_detail_container";
 import CreateEventFormContainer from "./events/create_event_form_container";
 import EditEventFormContainer from "./events/edit_event_form_container";
 import EventManagerContainer from "./events/event_manager_container";
+import FooterContainer from "./footer/footer_container";
 // Need to update routes to protected routes
 
 
@@ -33,6 +34,9 @@ const App = () => {
         <AuthRoute path="/signup" component={SignupFormContainer} />
         <Route path="*" component={NoMatch} />
       </Switch>
+      <footer>
+        <FooterContainer />
+      </footer>
     </div>
   );
 };
