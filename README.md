@@ -11,7 +11,7 @@ Click "Log In" and "Demo Login" to test the website immediately!
 
 * User creation and authentication
   * Demo login included. Click the "Demo Login" button on the [login page](https://eventfullapp.herokuapp.com/#/login) to get started quickly!
-  * Friendly error messages to help make the signup and login process seamless.
+  * Friendly error messages to help make the sign up and log in process seamless.
 
 * Event creation
   * Promote your event through unique event pages. Showcase your event with pictures and a custom description.
