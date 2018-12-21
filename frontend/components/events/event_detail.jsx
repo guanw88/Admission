@@ -20,6 +20,7 @@ class EventDetail extends React.Component {
 
   componentDidMount() {
     this.props.requestEvent(this.props.eventId);
+    window.scrollTo(0, 0);
   }
 
   extractStartMon(datetime) {

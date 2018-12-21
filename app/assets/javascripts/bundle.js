@@ -660,6 +660,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.requestEvent(this.props.eventId);
+      window.scrollTo(0, 0);
     }
   }, {
     key: "extractStartMon",
