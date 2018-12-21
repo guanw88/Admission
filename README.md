@@ -16,7 +16,7 @@ Click "Log In" and "Demo Login" to test the website immediately!
 * Event creation
   * Promote your event through unique event pages. Showcase your event with pictures and a custom description.
   * Google Map integration.
-  * Support for multiple time zones and daylight savings time. 
+  * Automatic conversion to Pacific Time, with support for daylight savings time. 
 
 * Ticketing, event discovery, and saved events coming soon!
 
