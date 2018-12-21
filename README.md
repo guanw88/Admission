@@ -23,7 +23,7 @@ Click "Log In" and "Demo Login" to test the website immediately!
 ---
 ## Screenshots 
 
-![Image]()
+To view the screenshots, please [click here](https://www.dropbox.com/sh/uw31quyfvmlsd2w/AABgQ8fqR5WI-cLvcsyCYeUBa?dl=0).
 
 ---
 ## Sample Code
