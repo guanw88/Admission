@@ -4,7 +4,7 @@ Eventful! is a portfolio project based on the Eventbrite website, built using Ru
 
 [Link To Live Website](https://eventfullapp.herokuapp.com)
 
-Click "Log In" and "Demo Login" to test the website immediately! 
+Click "Log In" and "Demo Login" to test the website immediately!
 
 ---
 ## Features
