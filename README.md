@@ -40,7 +40,7 @@ Custom code to convert event start and end time to Pacific Time
     return "GMT" + sign + offsetHours + ":" + offsetMin;
   }
  ```
-
+ 
 ---
 ## Additional Information
 
